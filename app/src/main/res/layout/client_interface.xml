@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context=".ClientHomePageActivity">
+
+    <!-- Form CardView -->
+
+    <!-- Centered Image with Padding -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/formCardView"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="50dp"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- Additional EditText Fields -->
+            <EditText
+                android:id="@+id/depart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Departure"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/depart"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Destination"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <!-- Validation Button with Icons -->
+            <Button
+                android:id="@+id/validat"
+                android:layout_width="262dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/destination"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/button_background"
+                android:drawablePadding="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:shadowRadius="@integer/material_motion_duration_short_1"
+                android:text="Search"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/paragraphCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="30dp"
+        android:background="@color/black"
+        app:cardElevation="30dp">
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Paragraph TextView with Padding and Bold Text -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/paragraphCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+       >
+
+        <TextView
+            android:id="@+id/paragraphTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Conducteurs, conductrices, bonne nouvelle : vos bonnes habitudes sont récompensées ! Bénéficiez de la Prime Covoiturage en réalisant 3 covoiturages en 3 mois, voir les conditions d'éligibilité.."
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/centerImageView"
+        android:layout_width="415dp"
+        android:layout_height="360dp"
+        android:layout_marginTop="220dp"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/client_img"
+        app:layout_constraintBottom_toTopOf="@+id/imageCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

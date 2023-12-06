@@ -27,6 +27,11 @@
             android:name=".Profil"
             android:exported="false" />
         <activity
+            android:name=".DetailActivity"
+            android:label="DetailActivity">
+        </activity>
+
+        <activity
             android:name=".Interface_driver"
             android:exported="false" />
         <activity
@@ -52,6 +57,10 @@
             android:exported="false" />
         <activity
             android:name=".ListeClientsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ListeCovoiturageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

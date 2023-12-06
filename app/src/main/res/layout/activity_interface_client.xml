@@ -7,7 +7,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".Interface_client">
+    tools:context=".Interface_admin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,11 +21,13 @@
             android:id="@+id/fragment_container" >
 
             <!-- CoordinatorLayout for BottomAppBar -->
+
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <!-- AppBarLayout -->
+
                 <com.google.android.material.appbar.AppBarLayout
                     android:id="@+id/appBarLayout"
                     android:layout_width="match_parent"
@@ -43,48 +45,49 @@
                             android:id="@+id/textLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/bungee"
                             android:text="Tawsila"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/bungee"
-                            android:textSize="30dp"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="16dp"/>
+                            android:textSize="30dp" />
 
                         <!-- Espace pour séparer le texte des icônes -->
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
 
                         <!-- Icône à droite -->
                         <ImageView
                             android:id="@+id/iconRight1"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/car_crash_24"
                             android:layout_gravity="end"
-                            android:layout_marginEnd="20dp" />
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/car_crash_24" />
 
                         <!-- Deuxième icône à droite -->
                         <ImageView
                             android:id="@+id/iconRight2"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/call_24"
                             android:layout_gravity="end"
-                            android:layout_marginEnd="20dp" />
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/call_24" />
                     </androidx.appcompat.widget.Toolbar>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/driverRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-                <!-- RecyclerView for the list of images -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"/>
 
                 <!-- BottomAppBar -->
+
                 <com.google.android.material.bottomappbar.BottomAppBar
                     android:id="@+id/bottomAppBar"
                     android:layout_width="match_parent"
@@ -104,7 +107,7 @@
                         app:itemIconTint="@color/bottomnavigation_color_state"
                         app:itemTextColor="@color/bottomnavigation_color_state"
                         app:labelVisibilityMode="labeled"
-                        app:menu="@menu/bottom_navigation_menu" />
+                        app:menu="@menu/menu_admin" />
 
                 </com.google.android.material.bottomappbar.BottomAppBar>
 

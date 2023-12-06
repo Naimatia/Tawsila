@@ -1,0 +1,198 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/bg1">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        app:cardCornerRadius="38dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:minHeight="450dp"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/detailDepartLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Depart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailDepartEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailDepartLabel"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="-25dp"
+                android:layout_toEndOf="@+id/detailDepartLabel"
+                android:background="@drawable/border_background"
+                android:elevation="2dp"
+                android:hint="Enter Depart"
+                android:padding="8dp"
+
+                android:fontFamily="@font/bangers"
+                android:textColor="#333333"
+                android:letterSpacing="0.03"
+                android:textAllCaps="true"
+                android:gravity="center_vertical"
+                android:lines="1"/>
+
+            <TextView
+                android:id="@+id/detailDestinationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destination"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_below="@id/detailDepartEditText"
+                android:layout_marginTop="16dp"/>
+
+
+            <TextView
+                android:id="@+id/detailDestinationEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="-25dp"
+                android:layout_toEndOf="@+id/detailDestinationLabel"
+                android:background="@drawable/border_background"
+                android:elevation="2dp"
+                android:hint="Enter Depart"
+                android:padding="8dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/bangers"
+            android:textColor="#333333"
+            android:letterSpacing="0.03"
+            android:textAllCaps="true"
+            android:gravity="center_vertical"
+            android:lines="1"
+            />
+            <TextView
+                android:id="@+id/detailDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/detailDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailDateLabel"
+                android:layout_marginTop="8dp"
+                android:hint="Enter Date"
+                android:textSize="18sp"
+                android:background="@drawable/border_background"
+                android:elevation="2dp"
+                android:padding="8dp"
+                android:fontFamily="@font/bangers"
+                android:textColor="#333333"
+                android:letterSpacing="0.03"
+                android:textAllCaps="true"
+                android:gravity="center_vertical"
+                android:lines="1"/>
+
+            <TextView
+                android:id="@+id/detailPriceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_below="@id/detailDateEditText"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/detailPriceEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailPriceLabel"
+                android:layout_marginTop="8dp"
+                android:hint=" Price"
+
+                android:background="@drawable/border_background"
+                android:elevation="2dp"
+                android:padding="8dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/bangers"
+                android:textColor="#333333"
+                android:letterSpacing="0.03"
+                android:textAllCaps="true"
+                android:gravity="center_vertical"
+                android:lines="1"/>
+
+            <TextView
+                android:id="@+id/detailPhoneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call me for more details"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_below="@id/detailDateEditText"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/detailPhoneEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailPriceLabel"
+                android:layout_marginTop="8dp"
+                android:hint=" Price"
+
+                android:background="@drawable/border_background"
+                android:elevation="2dp"
+                android:padding="8dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/bangers"
+                android:textColor="#333333"
+                android:letterSpacing="0.03"
+                android:textAllCaps="true"
+                android:gravity="center_vertical"
+                android:lines="1"/>
+
+            <!-- Add other EditTexts for additional details -->
+
+            <!-- Add a horizontal line to separate details from the confirmation section -->
+            <View
+                android:id="@+id/dividerLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/detailPriceEditText"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Add the confirmation section with buttons -->
+            <LinearLayout
+                android:id="@+id/confirmationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/dividerLine"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/confirmButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Confirmer"
+                    android:layout_marginEnd="8dp"/>
+
+                <!-- Add other buttons as needed -->
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

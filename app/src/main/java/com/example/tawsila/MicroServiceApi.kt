@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface MicroServiceApi {
 
     companion object {
-        const val BASE_URL = "http://192.168.1.7:8080"
+        const val BASE_URL = "http://192.168.56.1:8080"
     }
  //   @GET("/auth/all")
  //   fun getAllUsers(): Call<List<UserApp>>
@@ -52,4 +52,7 @@ interface MicroServiceApi {
     fun getDrivers(): Call<List<UserDTO>>
     @GET("/auth/clients")
     fun getClients(): Call<List<UserDTO>>
+
+    @GET("/driver/covoiturages")
+    fun getCovoiturages(): Call<List<Covoiturage>>
 }
