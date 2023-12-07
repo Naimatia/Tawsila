@@ -20,14 +20,13 @@ interface MicroServiceApi {
         const val BASE_URL = "http://192.168.56.1:8080"
 
     }
- //   @GET("/auth/all")
- //   fun getAllUsers(): Call<List<UserApp>>
+
 
     @POST("/auth/register")
     fun registerUser(@Body userDTO: UserDTO): Call<String>
 
    // @POST("/auth/token")
-  //  fun getToken(@Body authRequest: AuthRequest): Call<String>
+
    @POST("/auth/token")
    fun getToken(@Body authRequest: AuthRequest): Call<Map<String, Any>>
 

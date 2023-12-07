@@ -1,128 +1,171 @@
 package com.example.tawsila
 
-import android.app.AlertDialog
+import ApiParticipation
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
-
+    private lateinit var apiParticipation: ApiParticipation
+    private lateinit var confirmerButton: Button
     private var covoiturage: Covoiturage? = null
-    private lateinit var microServiceApi: MicroServiceApi // Declare the Retrofit service
-    private lateinit var apiParticipation: ApiParticipation // Declare the Retrofit service
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_covoiturage_detail)
 
-        // Initialize your services
-        microServiceApi =
-            RetrofitClient.getClient(MicroServiceApi.BASE_URL).create(MicroServiceApi::class.java)
-        apiParticipation =
-            RetrofitClient.getClient(ApiParticipation.BASE_URL).create(ApiParticipation::class.java)
 
-        val confirmerButton: Button = findViewById(R.id.confirmButton)
+        apiParticipation = RetrofitClient.getClient(ApiParticipation.BASE_URL)
+            .create(ApiParticipation::class.java)
+
+        // Initialize confirmerButton
+        confirmerButton = findViewById(R.id.confirmButton)
+
         confirmerButton.setOnClickListener {
-            showConfirmationDialog()
+            // Disable the button to prevent multiple clicks during the API call
+            confirmerButton.isEnabled = false
+
+            // Handle confirmation directly without showing the dialog
+            lifecycleScope.launch {
+                postConfirmation()
+
+                // Enable the button after the API call is complete
+                confirmerButton.isEnabled = true
+            }
         }
 
         // Retrieve data from intent
         covoiturage = intent.getParcelableExtra("covoiturage")
 
         // Update UI with covoiturage details
-        if (covoiturage != null) {
-            val departTextView: TextView = findViewById(R.id.detailDepartEditText)
-            departTextView.text = covoiturage!!.depart ?: ""
-
-            val destinationTextView: TextView = findViewById(R.id.detailDestinationEditText)
-            destinationTextView.text = covoiturage!!.destination ?: ""
-
-            val DateTextView: TextView = findViewById(R.id.detailDateEditText)
-            DateTextView.text = covoiturage!!.date ?: ""
-
-            val priceTextView: TextView = findViewById(R.id.detailPriceEditText)
-            priceTextView.text = covoiturage!!.price.toString() ?: ""
-            val phoneTextView: TextView = findViewById(R.id.detailPhoneEditText)
-            phoneTextView.text = covoiturage!!.phone.toString() ?: ""
+        covoiturage?.let {
+            updateUI(it)
         }
     }
 
-    private fun showConfirmationDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Confirmation")
-            .setMessage("Are you sure you want to confirm?")
-            .setPositiveButton("Yes") { _, _ ->
-                // Handle confirmation
-                postConfirmation()
-            }
-            .setNegativeButton("No", null)
-            .show()
+    private fun updateUI(covoiturage: Covoiturage) {
+        // Update UI with covoiturage details
+        val departTextView: TextView = findViewById(R.id.detailDepartEditText)
+        departTextView.text = covoiturage.depart ?: ""
+
+        val destinationTextView: TextView = findViewById(R.id.detailDestinationEditText)
+        destinationTextView.text = covoiturage.destination ?: ""
+
+        val DateTextView: TextView = findViewById(R.id.detailDateEditText)
+        DateTextView.text = covoiturage.date ?: ""
+
+        val priceTextView: TextView = findViewById(R.id.detailPriceEditText)
+        priceTextView.text = covoiturage.price.toString() ?: ""
+
+        val phoneTextView: TextView = findViewById(R.id.detailPhoneEditText)
+        phoneTextView.text = covoiturage.phone.toString() ?: ""
     }
+
     private fun postConfirmation() {
-        // Fetch user ID from authentication (Replace with your authentication logic)
-        val clientId: Int = 123
-
-        // Fetch carpooling ID from covoiturage
-        val carpoolingId: Long = covoiturage?.id ?: 0
-
-        // Set the "etat" value to 1
-        val etat: Int = 1
-
-        // Replace with your actual logic to generate a participation ID
-        val participationId: String = "123"
-
         // Create a ParticipationRequest object
+        val  userId = intent.getLongExtra("USER_ID", -1)
+        Log.e("id", "user id: ${userId}")
         val participationRequest = ParticipationRequest(
-            participationID = participationId,
-            clientID = clientId,
-            carpoolingID = carpoolingId.toInt(), // Convert to Int if necessary
-            etat = etat
+            participationID = "aziz65633a5d96be0d76632e0782",
+            clientID = userId,
+            carpoolingID = covoiturage?.id ?: 0,
+            etat = 1
         )
 
-        // Log the API endpoint URL
-        val requestUrl = apiParticipation.postParticipation(participationRequest).request().url.toString()
-        Log.d("Confirmation", "API URL: $requestUrl")
+        // Log the API details
+        val jsonBody = Gson().toJson(participationRequest)
+        val requestDetails = """
+        API Method: POST
+        API Body: $jsonBody
+    """.trimIndent()
+        Log.d("Confirmation", "API Details:\n$requestDetails")
 
-        // Make the API call
-        val call: Call<ResponseBody> = apiParticipation.postParticipation(participationRequest)
-        Log.d("Confirmation", "API URL: $call")
+        // Construct dynamic URL
+        val baseUrl = "http://192.168.56.1:3002/participation"
+        val dynamicUrl = "${baseUrl}?clientID=${participationRequest.clientID}&carpoolingID=${participationRequest.carpoolingID}&etat=${participationRequest.etat}"
+        Log.d("api", "API :\n$dynamicUrl")
 
-        // Enqueue the call
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                // Handle API response
+        // Make the API request with a dynamic URL
+        val call = apiParticipation.postReservation(dynamicUrl)
+        call.enqueue(object : retrofit2.Callback<ResponseBody> {
+            override fun onResponse(
+                call: retrofit2.Call<ResponseBody>,
+                response: retrofit2.Response<ResponseBody>
+            ) {
                 if (response.isSuccessful) {
                     // Successful confirmation
-                    val responseBody = response.body()?.string() ?: ""
-                    Log.d("Confirmation", "Confirmation successful. Response: $responseBody")
-                    Toast.makeText(
-                        this@DetailActivity,
-                        "Confirmation successful",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Log.d("Confirmation", "Confirmation successful.")
+                    showToast("Confirmation successful")
                 } else {
-                    // Failed confirmation
-                    val errorBody = response.errorBody()?.string() ?: "Unknown error"
-                    Log.e("Confirmation", "Confirmation failed. Error: $errorBody")
-                    Toast.makeText(this@DetailActivity, "Confirmation failed", Toast.LENGTH_SHORT)
-                        .show()
+                    // Handle unsuccessful confirmation
+                    handleFailure(response)
                 }
+
+                // Enable the button after the API call is complete
+                confirmerButton.isEnabled = true
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // Handle API call failure
-                Log.e("Confirmation", "Confirmation failed", t)
-                Toast.makeText(this@DetailActivity, "Confirmation failed", Toast.LENGTH_SHORT)
-                    .show()
+            override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
+                // Handle failure
+                handleException(t)
+
+                // Enable the button after the API call is complete
+                confirmerButton.isEnabled = true
             }
         })
     }
 
+
+    private fun showToast(message: String) {
+        // Show Toast on the main thread
+        runOnUiThread {
+            Toast.makeText(
+                this@DetailActivity,
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun handleFailure(response: Response<ResponseBody>) {
+        // Handle unsuccessful confirmation
+        Log.e("Confirmation", "Confirmation failed. HTTP status code: ${response.code()}")
+
+        // Show Toast on the main thread
+        showToast("Confirmation failed. Check logs for details")
+    }
+
+    private fun handleHttpException(e: HttpException) {
+        // Handle HTTP-related exceptions
+        Log.e("Confirmation", "Confirmation failed", e)
+
+        // Log the error details
+        val errorMessage = e.message ?: "Unknown error"
+        Log.e("Confirmation", "Error message: $errorMessage")
+
+        // Show Toast on the main thread
+        showToast("Confirmation failed. Check logs for details")
+    }
+
+    private fun handleException(e: Throwable) {
+        // Handle other exceptions
+        Log.e("Confirmation", "Confirmation failed", e)
+
+        // Log the error details
+        val errorMessage = e.message ?: "Unknown error"
+        Log.e("Confirmation", "Error message: $errorMessage")
+
+        // Show Toast on the main thread
+        showToast("Confirmation failed. Check logs for details")
+    }
 }

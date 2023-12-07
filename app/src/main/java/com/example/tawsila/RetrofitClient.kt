@@ -1,19 +1,18 @@
-package com.example.tawsila
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private var retrofit: Retrofit? = null
+    // Cache instances based on their base URLs
+    private val retrofitInstances: MutableMap<String, Retrofit> = mutableMapOf()
 
+    // Function to get a Retrofit instance
     fun getClient(baseUrl: String): Retrofit {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
+        return retrofitInstances.getOrPut(baseUrl) {
+            Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
-        return retrofit!!
     }
 }
