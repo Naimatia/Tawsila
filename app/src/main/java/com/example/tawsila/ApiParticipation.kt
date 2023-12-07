@@ -17,5 +17,4 @@ interface ApiParticipation {
     fun postReservation(@Url url: String): Call<ResponseBody>
 
 
-    // Other methods...
 }

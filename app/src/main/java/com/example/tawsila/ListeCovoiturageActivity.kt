@@ -49,7 +49,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
     }
 
     override fun onItemClick(covoiturage: Covoiturage) {
-        // Handle item click, e.g., launch DetailActivity
+        // Handle item click, e.g.,launch DetailActivity
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("covoiturage", covoiturage)
         startActivity(intent)

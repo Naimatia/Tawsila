@@ -100,6 +100,7 @@ class DetailActivity : AppCompatActivity() {
         call.enqueue(object : retrofit2.Callback<ResponseBody> {
             override fun onResponse(
                 call: retrofit2.Call<ResponseBody>,
+
                 response: retrofit2.Response<ResponseBody>
             ) {
                 if (response.isSuccessful) {
