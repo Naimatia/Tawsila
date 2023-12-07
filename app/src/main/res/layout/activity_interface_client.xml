@@ -7,7 +7,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".Interface_admin">
+    tools:context=".Interface_client">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:background="@color/bleu"
+                        android:background="@color/white"
                         app:layout_scrollFlags="scroll|enterAlways">
 
 
@@ -49,7 +49,7 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/bungee"
                             android:text="Tawsila"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="30dp" />
 
                         <!-- Espace pour séparer le texte des icônes -->
@@ -77,13 +77,105 @@
                             android:src="@drawable/call_24" />
                     </androidx.appcompat.widget.Toolbar>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/driverRecyclerView"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="405dp">
+                        <LinearLayout
+                            android:background="@color/bleu"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/textCentered"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="Un vaste choix de trajets à petits prix"
+                                android:textAlignment="center"
+                                android:layout_marginTop="-100dp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/bungee"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="100dp"
+                            app:cardCornerRadius="20dp">
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <!-- Source Input -->
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:startIconDrawable="@drawable/baseline_my_location"
+                                    app:startIconContentDescription="Source Icon">
+
+                                    <EditText
+                                        android:id="@+id/editTextSource"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Départ"
+                                        android:inputType="text" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <!-- Destination Input -->
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:startIconDrawable="@drawable/add_location"
+                                    app:startIconContentDescription="Destination Icon">
+
+                                    <EditText
+                                        android:id="@+id/editTextDestination"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Destination"
+                                        android:inputType="text" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <!-- Date Input -->
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:startIconDrawable="@drawable/baseline_calendar"
+                                    app:startIconContentDescription="Date Icon">
+
+                                    <EditText
+                                        android:id="@+id/editTextDate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="Aujourd'hui"
+                                        android:inputType="date" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <!-- Button Recherche -->
+                                <Button
+                                    android:id="@+id/buttonRecherche"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Recherche" />
+
+                            </LinearLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
                 </com.google.android.material.appbar.AppBarLayout>
+
+
+
 
 
                 <!-- BottomAppBar -->
@@ -107,7 +199,7 @@
                         app:itemIconTint="@color/bottomnavigation_color_state"
                         app:itemTextColor="@color/bottomnavigation_color_state"
                         app:labelVisibilityMode="labeled"
-                        app:menu="@menu/menu_admin" />
+                        app:menu="@menu/menu_client" />
 
                 </com.google.android.material.bottomappbar.BottomAppBar>
 

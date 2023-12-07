@@ -29,7 +29,7 @@ class Interface_admin : AppCompatActivity() {
         val  userId = intent.getLongExtra("USER_ID", -1)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.selectedItemId = R.id.bottom_home
+        bottomNavigationView.selectedItemId = R.id.liste_driver
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.liste_driver -> {
