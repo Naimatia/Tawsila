@@ -1,9 +1,10 @@
 package com.example.tawsila
 
-import android.os.Parcelable
 import android.os.Parcel
+import android.os.Parcelable
 
 data class Covoiturage(
+    val id: Long,
     val depart: String,
     val destination: String,
     val phone: String,
@@ -15,6 +16,7 @@ data class Covoiturage(
     val driver: Long
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -27,6 +29,7 @@ data class Covoiturage(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
         parcel.writeString(depart)
         parcel.writeString(destination)
         parcel.writeString(phone)

@@ -1,6 +1,7 @@
 package com.example.tawsila
 
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -10,11 +11,14 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
+
 
 interface MicroServiceApi {
 
     companion object {
         const val BASE_URL = "http://192.168.56.1:8080"
+
     }
  //   @GET("/auth/all")
  //   fun getAllUsers(): Call<List<UserApp>>
@@ -52,7 +56,15 @@ interface MicroServiceApi {
     fun getDrivers(): Call<List<UserDTO>>
     @GET("/auth/clients")
     fun getClients(): Call<List<UserDTO>>
-
     @GET("/driver/covoiturages")
-    fun getCovoiturages(): Call<List<Covoiturage>>
+    fun getCovs(): Call<List<Covoiturage>>
+
+    @GET
+    fun getFilteredCovoiturages(
+        @Url url: String,
+
+    ): Call<List<Covoiturage>>
+
+ //   @POST("/participation")
+  //  fun postParticipation(@Body participationRequest: ParticipationRequest): Call<ResponseBody>
 }

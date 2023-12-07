@@ -1,3 +1,4 @@
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,13 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tawsila.Covoiturage
 import com.example.tawsila.R
 
-import android.content.Context
-
-
 class CovoiturageAdapter(
-    private var covoituragesList: List<Covoiturage>,
+    private var originalCovoituragesList: List<Covoiturage>,
     private val context: Context
 ) : RecyclerView.Adapter<CovoiturageAdapter.ViewHolder>() {
+
+    private var filteredCovoituragesList: List<Covoiturage> = originalCovoituragesList
 
     interface OnItemClickListener {
         fun onItemClick(covoiturage: Covoiturage)
@@ -31,7 +31,7 @@ class CovoiturageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val covoiturage = covoituragesList[position]
+        val covoiturage = filteredCovoituragesList[position]
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(covoiturage)
@@ -41,36 +41,39 @@ class CovoiturageAdapter(
     }
 
     override fun getItemCount(): Int {
-        return covoituragesList.size
+        return filteredCovoituragesList.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val depart: TextView = itemView.findViewById(R.id.departTextView)
         val destination: TextView = itemView.findViewById(R.id.destinationTextView)
-        //val phone: TextView = itemView.findViewById(R.id.phoneTextView)
         val price: TextView = itemView.findViewById(R.id.priceTextView)
         val place: TextView = itemView.findViewById(R.id.placeTextView)
         val bagage: TextView = itemView.findViewById(R.id.bagageTextView)
         val description: TextView = itemView.findViewById(R.id.descriptionTextView)
         val date: TextView = itemView.findViewById(R.id.dateTextView)
-       // val driver: TextView = itemView.findViewById(R.id.driverTextView)
+
 
         fun bind(covoiturage: Covoiturage) {
             depart.text = covoiturage.depart ?: ""
             destination.text = covoiturage.destination ?: ""
-            //phone.text = covoiturage.phone ?: ""
             price.text = covoiturage.price?.toString() ?: ""
             place.text = covoiturage.place?.toString() ?: ""
             bagage.text = covoiturage.bagage ?: ""
             description.text = covoiturage.description ?: ""
             date.text = covoiturage.date ?: ""
-           // driver.text = covoiturage.driver?.toString() ?: ""
+
         }
     }
 
-    fun updateData(newData: List<Covoiturage>) {
-        covoituragesList = newData
+    fun setFilteredData(newData: List<Covoiturage>) {
+        filteredCovoituragesList = newData
         notifyDataSetChanged()
+    }
+
+    fun updateOriginalData(newData: List<Covoiturage>) {
+        originalCovoituragesList = newData
+        setFilteredData(newData) // Optionally update filtered data as well
     }
 }
 

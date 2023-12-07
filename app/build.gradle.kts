@@ -48,6 +48,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.2.0")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1") // Use the latest version
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
 
 
 }
