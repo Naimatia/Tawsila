@@ -17,7 +17,7 @@ import retrofit2.http.Url
 interface MicroServiceApi {
 
     companion object {
-        const val BASE_URL = "http://169.254.142.86:8080"
+        const val BASE_URL = "http://192.168.56.1:8080"
 
     }
 
@@ -64,6 +64,13 @@ interface MicroServiceApi {
 
     ): Call<List<Covoiturage>>
 
- //   @POST("/participation")
+    @GET
+    fun  getFilteredReservations(@Url url: String): Call<List<Reservation>>
+
+    @GET
+    fun getCovoiturageDetails(@Url url: String): Call<Covoiturage>
+
+
+    //   @POST("/participation")
   //  fun postParticipation(@Body participationRequest: ParticipationRequest): Call<ResponseBody>
 }

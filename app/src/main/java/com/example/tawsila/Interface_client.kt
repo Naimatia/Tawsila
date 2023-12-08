@@ -1,7 +1,6 @@
 package com.example.tawsila
 
 import android.app.DatePickerDialog
-import android.content.AttributionSource
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,9 +8,6 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Calendar
 
@@ -73,7 +69,7 @@ class Interface_client : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, ListeCovoiturageActivity::class.java)
+                    val intent = Intent(this, ListeReservationActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

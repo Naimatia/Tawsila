@@ -11,6 +11,7 @@
         <item>CLIENT</item>
     </string-array>
     <string name="gender_hint">Click to chose Role</string>
+    <string name="participation_id_icon" />
 
 
 </resources>

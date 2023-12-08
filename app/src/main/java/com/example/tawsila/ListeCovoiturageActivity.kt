@@ -51,6 +51,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         val destination = intent.getStringExtra("DESTINATION") ?: "defaultDestination"
         val date = intent.getStringExtra("DATE") ?: "defaultDate"
 
+
         // Call the function to fetch and display covoiturages
         fetchAndDisplayCovoiturages(source, destination, date)
     }
