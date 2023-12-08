@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,24 +45,33 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         covoiturageAdapter.setOnItemClickListener(this)
         recyclerView.adapter = covoiturageAdapter
 
+
+        // Retrieve input values from Intent
+        val source = intent.getStringExtra("SOURCE") ?: "defaultSource"
+        val destination = intent.getStringExtra("DESTINATION") ?: "defaultDestination"
+        val date = intent.getStringExtra("DATE") ?: "defaultDate"
+
         // Call the function to fetch and display covoiturages
-        fetchAndDisplayCovoiturages()
+        fetchAndDisplayCovoiturages(source, destination, date)
     }
 
     override fun onItemClick(covoiturage: Covoiturage) {
-        // Handle item click, e.g.,launch DetailActivity
+        // Handle item click, e.g., launch DetailActivity
         val intent = Intent(this, DetailActivity::class.java)
+        val userId: Long = intent.getLongExtra("USER_ID", -1)
         intent.putExtra("covoiturage", covoiturage)
+        intent.putExtra("USER_ID", userId)
+        Log.e("id", "user id: ${userId}")
         startActivity(intent)
     }
 
-    private fun fetchAndDisplayCovoiturages() {
-        val depart = "bizerte"
-        val destination = "tunis"
-        val date = "2023-11-21"
+    private fun fetchAndDisplayCovoiturages(source: String, destination: String, date: String) {
+        //  val depart = "bizerte"
+        //  val destination = "tunis"
+        //  val date = "2023-11-21"
 
         val baseUrl = "http://192.168.56.1:8080/driver/covsddd/"
-        val url = "${baseUrl}?depart=$depart&destination=$destination&date=$date"
+        val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(url)
 
 
