@@ -71,7 +71,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         //  val destination = "tunis"
         //  val date = "2023-11-21"
 
-        val baseUrl = "http://192.168.56.1:8080/driver/covsddd/"
+        val baseUrl = "http://192.168.1.7:8080/driver/covsddd/"
         val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(url)
 

@@ -1,5 +1,6 @@
 package com.example.tawsila
 
+import CovoiturageAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,64 +11,59 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListeClientsActivity : AppCompatActivity() {
+class ListCovAdmin : AppCompatActivity() {
 
-    // ... (autres variables, initialisations, etc.)
-
-    private lateinit var clientAdapter: ClientAdapter
     private val retrofit = Retrofit.Builder()
         .baseUrl(MicroServiceApi.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .build()
 
-    private val microserviceApi = retrofit.create(MicroServiceApi::class.java)
+    private lateinit var covAdapter: CovAdapter
     private lateinit var recyclerView: RecyclerView
+    private val microserviceApi = retrofit.create(MicroServiceApi::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_liste_clients)
-        setUpBottomNavigationView()
-        // ... (initialisation des vues, etc.)
+        setContentView(R.layout.activity_liste_cov)
 
-        recyclerView = findViewById(R.id.recyclerViewClients)
+        recyclerView = findViewById(R.id.recyclerViewCov)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        clientAdapter = ClientAdapter(emptyList())
-        recyclerView.adapter = clientAdapter
+        covAdapter = CovAdapter(emptyList())
+        recyclerView.adapter = covAdapter
 
-        val listeClientsButton = findViewById<Button>(R.id.listeClientsButton)
-        listeClientsButton.setOnClickListener {
-            fetchAndDisplayDrivers()
+        val listeCovoituragesButton = findViewById<Button>(R.id.listeCovoituragesButton)
+        listeCovoituragesButton.setOnClickListener {
+            fetchAndDisplayCovoiturages()
         }
+        setUpBottomNavigationView()
     }
 
-    private fun fetchAndDisplayDrivers() {
-        // ... (votre code pour récupérer les conducteurs depuis l'API)
-
-        val call: Call<List<UserDTO>> = microserviceApi.getClients()
-        call.enqueue(object : Callback<List<UserDTO>> {
-            override fun onResponse(call: Call<List<UserDTO>>, response: Response<List<UserDTO>>) {
+    private fun fetchAndDisplayCovoiturages() {
+        val call: Call<List<Covoiturage>> = microserviceApi.getCovs()
+        call.enqueue(object : Callback<List<Covoiturage>> {
+            override fun onResponse(call: Call<List<Covoiturage>>, response: Response<List<Covoiturage>>) {
                 if (response.isSuccessful) {
-                    val clientList: List<UserDTO>? = response.body()
-                    if (clientList != null) {
-                        clientAdapter = ClientAdapter(clientList)
-                        recyclerView.adapter = clientAdapter // Attacher l'adaptateur au RecyclerView
-                        recyclerView.visibility = View.VISIBLE // Rendre le RecyclerView visible
+                    val covoituragesList: List<Covoiturage>? = response.body()
+                    covoituragesList?.let {
+                        covAdapter = CovAdapter(it)
+                        recyclerView.adapter = covAdapter
+                        recyclerView.visibility = View.VISIBLE
                     }
-
                 } else {
-                    // Gérer la réponse non réussie
-                    Log.e("ListeDriversActivity", "Échec de la récupération des clients: ${response.code()}")
+                    Log.e("ListeCovoiturage", "Échec de la récupération des covoiturages: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<UserDTO>>, t: Throwable) {
-                // Gérer les erreurs réseau ou autres pendant la récupération des conducteurs
-                Log.e("ListeClientsActivity", "Erreur: ${t.message}")
+            override fun onFailure(call: Call<List<Covoiturage>>, t: Throwable) {
+                Log.e("ListeCovoiturage", "Erreur: ${t.message}")
                 t.printStackTrace()
             }
         })

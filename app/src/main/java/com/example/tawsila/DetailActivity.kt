@@ -91,7 +91,7 @@ class DetailActivity : AppCompatActivity() {
         Log.d("Confirmation", "API Details:\n$requestDetails")
 
         // Construct dynamic URL
-        val baseUrl = "http://192.168.56.1:3002/participation"
+        val baseUrl = "http://192.168.1.7:3002/participation"
         val dynamicUrl = "${baseUrl}?clientID=${participationRequest.clientID}&carpoolingID=${participationRequest.carpoolingID}&etat=${participationRequest.etat}"
         Log.d("api", "API :\n$dynamicUrl")
 

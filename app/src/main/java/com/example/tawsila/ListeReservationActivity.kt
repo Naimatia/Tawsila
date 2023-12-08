@@ -43,7 +43,7 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
 
         val idclient = 2
 
-        val baseUrl = "http://192.168.56.1:3002/participations/$idclient"
+        val baseUrl = "http://192.168.1.7:3002/participations/$idclient"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)

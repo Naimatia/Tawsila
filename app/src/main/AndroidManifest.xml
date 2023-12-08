@@ -62,6 +62,13 @@
         <activity
             android:name=".ListeClientsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ListCovAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ParticiDetailsadmin"
+            android:exported="false" />
+
 
         <activity android:name=".ListeReservationActivity">
             <!-- Add any necessary intent filters or other activity configurations here -->
