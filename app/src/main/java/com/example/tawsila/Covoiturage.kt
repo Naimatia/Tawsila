@@ -5,40 +5,46 @@ import android.os.Parcelable
 
 data class Covoiturage(
     val id: Long,
+    val driver: Long,
     val depart: String,
     val destination: String,
     val phone: String,
-    val price: Int,
+    val price: Double,
     val place: Int,
+    val  date: String,
     val bagage: String,
-    val description: String,
-    val date: String,
-    val driver: Long
+    val  marque: String,
+    val  heureDepart: String,
+    val  heureArrive: String
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readLong(),
+        parcel.readLong(),parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readDouble(),
         parcel.readInt(),
-        parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readLong()
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
+        parcel.writeLong(driver)
         parcel.writeString(depart)
         parcel.writeString(destination)
         parcel.writeString(phone)
-        parcel.writeInt(price)
+        parcel.writeDouble(price)
         parcel.writeInt(place)
-        parcel.writeString(bagage)
-        parcel.writeString(description)
         parcel.writeString(date)
-        parcel.writeLong(driver)
+        parcel.writeString(bagage)
+        parcel.writeString(marque)
+        parcel.writeString(heureDepart)
+        parcel.writeString(heureArrive)
     }
 
     override fun describeContents(): Int {

@@ -60,7 +60,6 @@ class CovoiturageAdapter(
             price.text = covoiturage.price?.toString() ?: ""
             place.text = covoiturage.place?.toString() ?: ""
             bagage.text = covoiturage.bagage ?: ""
-            description.text = covoiturage.description ?: ""
             date.text = covoiturage.date ?: ""
 
         }
