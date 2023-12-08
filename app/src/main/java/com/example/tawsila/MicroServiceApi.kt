@@ -17,7 +17,7 @@ import retrofit2.http.Url
 interface MicroServiceApi {
 
     companion object {
-        const val BASE_URL = "http://169.254.142.86:8080"
+        const val BASE_URL = "http://172.20.10.3:8080"
 
     }
 
@@ -30,6 +30,8 @@ interface MicroServiceApi {
    @POST("/auth/token")
    fun getToken(@Body authRequest: AuthRequest): Call<Map<String, Any>>
 
+    @POST("/driver/covoiturages")
+    fun createCovoiturage(@Body covoiturage: Covoiturage): Call<Covoiturage>
 
 
     @GET("/auth/validate")
