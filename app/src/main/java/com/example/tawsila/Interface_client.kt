@@ -51,7 +51,6 @@ class Interface_client : AppCompatActivity() {
             // Pass the values to the next activity
             navigateToNextActivity(source, destination, date)
         }
-// Ajoutez un écouteur de clic pour ouvrir le sélecteur de date
         editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
