@@ -4,22 +4,15 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.GsonBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.Calendar
-import kotlin.properties.Delegates
 
 class driver_trajet: AppCompatActivity() {
     private val selectedDays = mutableListOf<String>()
@@ -31,7 +24,7 @@ class driver_trajet: AppCompatActivity() {
     private lateinit var selectedTimeTextView: TextView
     private lateinit var selectedTimeAllerTextView: TextView
     private lateinit var selectedTimeRetourTextView: TextView
-    private var userId by Delegates.notNull<Long>()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(MicroServiceApi.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
@@ -46,13 +39,10 @@ class driver_trajet: AppCompatActivity() {
         selectedTimeAllerTextView = findViewById(R.id.selectedTimeAllerTextView)
         selectedTimeRetourTextView = findViewById(R.id.selectedTimeRetourTextView)
         selectedTimeTextView = findViewById(R.id.selectedTimeAllerTextView) // Initialize selectedTimeTextView
-        userId = intent.getLongExtra("USER_ID", -1)
+
         // Call the function to set up userId and BottomNavigationView
         setUpBottomNavigationView()
-        val createTrajetButton: Button = findViewById(R.id.myButton)
-        createTrajetButton.setOnClickListener {
-            onConfirmTrajetCreation()
-        }
+
 // Add "Aller" and "Regulier" cells to the "Aller" layout
         allerCell = createCell("Aller", true)
         regulierCell = createCell("Regulier", false)
@@ -304,70 +294,5 @@ class driver_trajet: AppCompatActivity() {
             }
         }
     }
-
-    private fun sendCovoiturageToApi(covoiturage: Covoiturage) {
-        val microServiceApi = retrofit.create(MicroServiceApi::class.java)
-        val call = microServiceApi.createCovoiturage(covoiturage)
-
-        // Log the request details
-        Log.d("API_REQUEST", "Request URL: ${call.request().url}")
-        Log.d("API_REQUEST", "Request Body: $covoiturage")
-
-        call.enqueue(object : Callback<Covoiturage> {
-            override fun onResponse(call: Call<Covoiturage>, response: Response<Covoiturage>) {
-                if (response.isSuccessful) {
-                    // Log the successful response details
-                    Log.d("API_RESPONSE", "Response Body: ${response.body()}")
-                } else {
-                    // Log the error response details
-                    Log.e("API_RESPONSE_ERROR", "Error Body: ${response.errorBody()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Covoiturage>, t: Throwable) {
-                // Log the failure details
-                Log.e("API_FAILURE", "Error: ${t.message}", t)
-            }
-        })
-    }
-
-
-    private fun createTrajetInstance(userId: Long, phone: String): Covoiturage {
-        // Gather data from UI elements
-        val id: Long = System.currentTimeMillis()
-        val driver: Long = userId
-        val departEditText: TextInputEditText = findViewById(R.id.editTextdépart) // Replace with correct ID
-        val destinationEditText: TextInputEditText = findViewById(R.id.editTextarriveé) // Replace with correct ID
-
-        val depart: String = departEditText.text.toString()
-        val destination: String = destinationEditText.text.toString()
-
-        val price: Double = 10.0
-        val place: Int = 10
-        val date: String = "1410"
-        val bagage: String = "valise"
-        val marque: String = "ford"
-        val heureDepart: String = selectedTimeAllerTextView.text.toString()
-        val heureArrive: String = selectedTimeRetourTextView.text.toString()
-
-        // Create an instance of Covoiturage
-        return Covoiturage(
-            id, driver, depart, destination, phone, price, place, date, bagage, marque, heureDepart, heureArrive
-        )
-    }
-
-
-
-    private fun onConfirmTrajetCreation() {
-        val userId = intent.getLongExtra("USER_ID", -1)
-
-        // Replace the following line with the logic to obtain the phone value
-        val phone = "55331252"// get the phone value from the appropriate source""
-
-        val covoiturage = createTrajetInstance(userId, phone)
-        sendCovoiturageToApi(covoiturage)
-    }
-
-
 
 }

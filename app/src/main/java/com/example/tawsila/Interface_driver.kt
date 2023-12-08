@@ -70,7 +70,7 @@ class Interface_driver : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_Add -> {
-                    val intent = Intent(this, driver_trajet::class.java)
+                    val intent = Intent(this, profil_image::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

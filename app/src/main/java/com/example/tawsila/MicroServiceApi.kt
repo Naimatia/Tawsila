@@ -25,10 +25,10 @@ interface MicroServiceApi {
     @POST("/auth/register")
     fun registerUser(@Body userDTO: UserDTO): Call<String>
 
-   // @POST("/auth/token")
+    // @POST("/auth/token")
 
-   @POST("/auth/token")
-   fun getToken(@Body authRequest: AuthRequest): Call<Map<String, Any>>
+    @POST("/auth/token")
+    fun getToken(@Body authRequest: AuthRequest): Call<Map<String, Any>>
 
 
 
@@ -62,15 +62,21 @@ interface MicroServiceApi {
     fun getFilteredCovoiturages(
         @Url url: String,
 
-    ): Call<List<Covoiturage>>
+        ): Call<List<Covoiturage>>
+
 
     @GET
-    fun  getFilteredReservations(@Url url: String): Call<List<Reservation>>
+    fun getFilteredReservations(
+        @Url url: String,
+
+        ): Call<List<Reservation>>
 
     @GET
-    fun getCovoiturageDetails(@Url url: String): Call<Covoiturage>
+    fun getCovoiturageDetails(
+        @Url url: String,
 
+        ): Call<Covoiturage>
 
     //   @POST("/participation")
-  //  fun postParticipation(@Body participationRequest: ParticipationRequest): Call<ResponseBody>
+    //  fun postParticipation(@Body participationRequest: ParticipationRequest): Call<ResponseBody>
 }
