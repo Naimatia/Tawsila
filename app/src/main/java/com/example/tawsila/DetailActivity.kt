@@ -74,7 +74,7 @@ class DetailActivity : AppCompatActivity() {
     private fun postConfirmation() {
         // Create a ParticipationRequest object
         val  userId = intent.getLongExtra("USER_ID", -1)
-        Log.e("id", "user id: ${userId}")
+        Log.e("id", "user id: $userId")
         val participationRequest = ParticipationRequest(
             participationID = "aziz65633a5d96be0d766320782",
             clientID = userId,
@@ -91,7 +91,7 @@ class DetailActivity : AppCompatActivity() {
         Log.d("Confirmation", "API Details:\n$requestDetails")
 
         // Construct dynamic URL
-        val baseUrl = "http://192.168.56.1:3002/participation"
+        val baseUrl = "http://169.254.142.86:3002/participation"
         val dynamicUrl = "${baseUrl}?clientID=${participationRequest.clientID}&carpoolingID=${participationRequest.carpoolingID}&etat=${participationRequest.etat}"
         Log.d("api", "API :\n$dynamicUrl")
 

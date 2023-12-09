@@ -14,7 +14,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:transitionName="logo_image"
-        android:src="@mipmap/image" />
+        android:src="@mipmap/tawsila" />
 
     <TextView
         android:layout_width="wrap_content"

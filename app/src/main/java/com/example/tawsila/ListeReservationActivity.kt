@@ -1,8 +1,10 @@
 package com.example.tawsila
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +34,9 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
 
         // Call the function to fetch and display reservations
         fetchAndDisplayReservations()
+
+
+
     }
 
     override fun onItemClick(reservation: Reservation) {
@@ -41,9 +46,10 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
 
     private fun fetchAndDisplayReservations() {
 
-        val idclient = 2
-
-        val baseUrl = "http://192.168.56.1:3002/participations/$idclient"
+      //  val idclient = 2
+        val  userId = intent.getLongExtra("USER_ID", -1)
+        Log.e("id", "user id: $userId")
+        val baseUrl = "http://169.254.142.86:3002/participations/$userId"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)

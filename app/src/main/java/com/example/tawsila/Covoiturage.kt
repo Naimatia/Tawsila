@@ -13,7 +13,9 @@ data class Covoiturage(
     val bagage: String,
     val description: String,
     val date: String,
-    val driver: Long
+    val driver: Long,
+    val heureDepart: String,
+    val heureArrive: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
@@ -25,7 +27,9 @@ data class Covoiturage(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readLong()
+        parcel.readLong(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -39,6 +43,8 @@ data class Covoiturage(
         parcel.writeString(description)
         parcel.writeString(date)
         parcel.writeLong(driver)
+        parcel.writeString(heureDepart)
+        parcel.writeString(heureArrive)
     }
 
     override fun describeContents(): Int {

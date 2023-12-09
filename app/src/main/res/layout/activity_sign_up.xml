@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="179dp"
         android:layout_height="122dp"
-        android:src="@mipmap/image"
+        android:src="@mipmap/tawsila"
         android:transitionName="logo image" />
 
     <TextView
