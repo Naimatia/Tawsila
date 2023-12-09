@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,7 +36,8 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
         // Call the function to fetch and display reservations
         fetchAndDisplayReservations()
 
-
+        // Call the function to set up userId and BottomNavigationView
+        setUpBottomNavigationView()
 
     }
 
@@ -86,5 +88,44 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
                 t.printStackTrace()
             }
         })
+    }
+    private fun setUpBottomNavigationView() {
+        val  userId = intent.getLongExtra("USER_ID", -1)
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.selectedItemId = R.id.bottom_trajet
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_home -> {
+                    val intent = Intent(this, Interface_client::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_trajet -> {
+                    val intent = Intent(this, ListeReservationActivity::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.carpooling -> {
+                    val intent = Intent(this, Profil::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_profil -> {
+                    val intent = Intent(this, Profil::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

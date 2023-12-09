@@ -2,22 +2,37 @@ package com.example.tawsila
 
 import ApiParticipation
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Response
+import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
+import java.net.URL
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var apiParticipation: ApiParticipation
     private lateinit var confirmerButton: Button
     private var covoiturage: Covoiturage? = null
+    private lateinit var map: MapView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +64,26 @@ class DetailActivity : AppCompatActivity() {
 
         // Update UI with covoiturage details
         covoiturage?.let {
-            updateUI(it)
+            lifecycleScope.launch {
+                updateUI(it)
+            }
         }
+
+
+        // Chargez la configuration OSMdroid
+        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
+
+        // Récupérez la vue de la carte
+        map = findViewById(R.id.mapView)
+
+        // Définissez la source de tuiles
+        map.setTileSource(TileSourceFactory.MAPNIK)
+
+        // Activez les contrôles multi-touch
+        map.setMultiTouchControls(true)
     }
 
-    private fun updateUI(covoiturage: Covoiturage) {
+    private suspend fun updateUI(covoiturage: Covoiturage) {
         // Update UI with covoiturage details
         val departTextView: TextView = findViewById(R.id.detailDepartEditText)
         departTextView.text = covoiturage.depart ?: ""
@@ -69,7 +99,27 @@ class DetailActivity : AppCompatActivity() {
 
         val phoneTextView: TextView = findViewById(R.id.detailPhoneEditText)
         phoneTextView.text = covoiturage.phone.toString() ?: ""
+
+        val sourceCoordinates = withContext(Dispatchers.IO) {
+            getCoordinates(covoiturage?.depart ?: "")
+        }
+        val destinationCoordinates = withContext(Dispatchers.IO) {
+            getCoordinates(covoiturage?.destination ?: "")
+        }
+
+        val sourceMarker = Marker(map)
+        sourceMarker.position = sourceCoordinates
+        sourceMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        map.overlays.add(sourceMarker)
+
+        val destinationMarker = Marker(map)
+        destinationMarker.position = destinationCoordinates
+        destinationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        map.overlays.add(destinationMarker)
+
+
     }
+
 
     private fun postConfirmation() {
         // Create a ParticipationRequest object
@@ -169,4 +219,28 @@ class DetailActivity : AppCompatActivity() {
         // Show Toast on the main thread
         showToast("Confirmation failed. Check logs for details")
     }
+
+    suspend fun getCoordinates(country: String): GeoPoint {
+        val url = "https://nominatim.openstreetmap.org/search?country=$country&format=json"
+
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        val response = client.newCall(request).execute()
+        val responseBody = response.body?.string()
+
+        val gson = Gson()
+        val type = object : TypeToken<List<Map<String, Any>>>() {}.type
+        val list: List<Map<String, Any>> = gson.fromJson(responseBody, type)
+
+        val lat = list[0]["lat"] as Double
+        val lon = list[0]["lon"] as Double
+
+        return GeoPoint(lat, lon)
+    }
+
+
+
 }

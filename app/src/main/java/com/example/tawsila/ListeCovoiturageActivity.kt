@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,10 +35,12 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
 
     private val microserviceApi = retrofit.create(MicroServiceApi::class.java)
     private lateinit var recyclerView: RecyclerView
-
+    private lateinit var textSource: TextView
+    private lateinit var textDestination: TextView
+    private lateinit var textDate: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_liste_covoiturages)
+        setContentView(R.layout.activity_liste_covoiturage)
 
         recyclerView = findViewById(R.id.recyclerViewClients)
         val layoutManager = LinearLayoutManager(this)
@@ -50,6 +54,29 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         val source = intent.getStringExtra("SOURCE") ?: "defaultSource"
         val destination = intent.getStringExtra("DESTINATION") ?: "defaultDestination"
         val date = intent.getStringExtra("DATE") ?: "defaultDate"
+
+        textSource = findViewById(R.id.Source)
+        textDestination = findViewById(R.id.Destination)
+        textDate = findViewById(R.id.Date)
+
+
+        textSource.text = source
+        textDestination.text = destination
+        textDate.text = date
+
+        // Call the function to fetch and display covoiturages
+        fetchAndDisplayCovoiturages(source, destination, date)
+
+        val iconBack: ImageView = findViewById(R.id.iconBack)
+
+        // Add a click listener to the iconBack ImageView
+        iconBack.setOnClickListener {
+            val userId = intent.getLongExtra("USER_ID", -1)
+            val intent = Intent(this, Interface_client::class.java)
+            intent.putExtra("USER_ID", userId)
+            startActivity(intent)
+        }
+
 
 
         // Call the function to fetch and display covoiturages
@@ -71,7 +98,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         //  val destination = "tunis"
         //  val date = "2023-11-21"
 
-        val baseUrl = "http://192.168.56.1:8080/driver/covsddd/"
+        val baseUrl = "http://169.254.142.86:8080/driver/covsddd/"
         val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(url)
 

@@ -106,34 +106,27 @@ class Profil : AppCompatActivity() {
         }
     }
     private fun setUpBottomNavigationView() {
-       val  userId = intent.getLongExtra("USER_ID", -1)
+        val  userId = intent.getLongExtra("USER_ID", -1)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.selectedItemId = R.id.bottom_profil
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_home -> {
-                    val intent = Intent(this, Interface_driver::class.java)
+                    val intent = Intent(this, Interface_client::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, ListeReservationActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
-                R.id.bottom_Add -> {
-                    val intent = Intent(this, driver_trajet::class.java)
-                    intent.putExtra("USER_ID", userId)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
-                R.id.bottom_notification -> {
+                R.id.carpooling -> {
                     val intent = Intent(this, Profil::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
@@ -141,10 +134,9 @@ class Profil : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_profil -> {
-                    // Update userId if needed
-                    startActivity(Intent(applicationContext, Profil::class.java).apply {
-                        putExtra("USER_ID", userId)
-                    })
+                    val intent = Intent(this, Profil::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
                     finish()
                     true
                 }
