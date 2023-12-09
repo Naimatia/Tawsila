@@ -47,7 +47,7 @@ class Interface_admin : AppCompatActivity() {
                     true
                 }
                 R.id.carpooling -> {
-                    val intent = Intent(this, profil_image::class.java)
+                    val intent = Intent(this, ListCovAdmin::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
