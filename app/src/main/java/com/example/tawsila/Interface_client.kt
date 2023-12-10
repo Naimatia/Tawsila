@@ -126,7 +126,9 @@ class Interface_client : AppCompatActivity() {
         }
         val  userId = intent.getLongExtra("USER_ID", -1)
         Log.e("id", "user id: ${userId}")
-
+        intent.putExtra("SOURCE", source)
+        intent.putExtra("DESTINATION", destination)
+        intent.putExtra("DATE", currentDate)
         // For example, create an Intent and pass the values as extras
         val intent = Intent(this, ListeCovoiturageActivity::class.java)
         intent.putExtra("SOURCE", source)
@@ -136,5 +138,22 @@ class Interface_client : AppCompatActivity() {
         startActivity(intent)
     }
 
+    override fun onBackPressed() {
+        val userId = intent.getLongExtra("USER_ID", -1)
+        val intent = Intent(this, Interface_client::class.java)
+        intent.putExtra("USER_ID", userId)
 
+        // Retrieve input values from Intent
+        val source = intent.getStringExtra("SOURCE") ?: ""
+        val destination = intent.getStringExtra("DESTINATION") ?: ""
+        val date = intent.getStringExtra("DATE") ?: ""
+
+        // Save input values in the intent before finishing
+        intent.putExtra("SOURCE", source)
+        intent.putExtra("DESTINATION", destination)
+        intent.putExtra("DATE", date)
+
+        startActivity(intent)
+        finish()
+    }
 }

@@ -72,9 +72,14 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         // Add a click listener to the iconBack ImageView
         iconBack.setOnClickListener {
             val userId = intent.getLongExtra("USER_ID", -1)
-            val intent = Intent(this, Interface_client::class.java)
-            intent.putExtra("USER_ID", userId)
-            startActivity(intent)
+            val intent = Intent().apply {
+                putExtra("USER_ID", userId)
+                putExtra("SOURCE", source)
+                putExtra("DESTINATION", destination)
+                putExtra("DATE", date)
+            }
+            setResult(RESULT_OK, intent)
+            finish()
         }
 
 
