@@ -1,10 +1,10 @@
 package com.example.tawsila
 
+import ApiParticipation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +18,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItemClickListener {
-    private lateinit var reservationAdapter: ReservationAdapter
+class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnItemClickListener {
+    private lateinit var ReservationDriverAdapter: ReservationDriverAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,15 +29,37 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
         recyclerView = findViewById(R.id.recyclerViewClients)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        reservationAdapter = ReservationAdapter(emptyList(), this)
-        reservationAdapter.setOnItemClickListener(this)
-        recyclerView.adapter = reservationAdapter
+        ReservationDriverAdapter = ReservationDriverAdapter(emptyList(), this)
+        ReservationDriverAdapter.setOnItemClickListener(this)
+        recyclerView.adapter = ReservationDriverAdapter
 
         // Call the function to fetch and display reservations
         fetchAndDisplayReservations()
 
         // Call the function to set up userId and BottomNavigationView
         setUpBottomNavigationView()
+
+        // Retrieve covoiturage ID from the intent
+        val covoiturageId = intent.getLongExtra("covoiturage", -1)
+
+        if (covoiturageId != -1L) {
+            // covoiturageId is valid, you can use it in your activity
+            Log.d("ReservationListDriver", "Received covoiturage ID: $covoiturageId")
+        } else {
+            // Handle the case where covoiturageId is not provided or invalid
+            Log.e("ReservationListDriver", "Invalid covoiturage ID")
+        }
+
+        // Retrieve user ID from the intent
+        val userId = intent.getLongExtra("USER_ID", -1)
+
+        if (userId != -1L) {
+            // userId is valid, you can use it in your activity
+            Log.d("ReservationListDriver", "Received user ID: $userId")
+        } else {
+            // Handle the case where userId is not provided or invalid
+            Log.e("ReservationListDriver", "Invalid user ID")
+        }
 
     }
 
@@ -48,10 +70,13 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
 
     private fun fetchAndDisplayReservations() {
 
-      //  val idclient = 2
-        val  userId = intent.getLongExtra("USER_ID", -1)
-        Log.e("id", "user id: $userId")
-        val baseUrl = "http://192.168.56.1:3002/participations/$userId"
+        //  val idclient = 2
+        //val/  userId = intent.getLongExtra("USER_ID", -1)
+        //Log.e("id", "user id: $userId")
+
+
+
+        val baseUrl = "http://192.168.56.1:3002/participationDriver/60"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)
@@ -73,7 +98,7 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
                     val reservationsList: List<Reservation>? = response.body()
                     if (reservationsList != null) {
                         Log.d("Liste", "Received ${reservationsList.size} reservations")
-                        reservationAdapter.setFilteredData(reservationsList) // Update adapter data
+                        ReservationDriverAdapter.setFilteredData(reservationsList) // Update adapter data
                         recyclerView.visibility = View.VISIBLE
                     } else {
                         Log.e("Liste", "Response body is null")

@@ -59,6 +59,14 @@
         <activity
             android:name=".ListeDriversActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ReservationListDriver"
+            android:exported="false" />
+
+        <activity
+            android:name=".DriverCovoiturageActivity"
+            android:exported="false" />
         <activity
             android:name=".ListeClientsActivity"
             android:exported="false" />

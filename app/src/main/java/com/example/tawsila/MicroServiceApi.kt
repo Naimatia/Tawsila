@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -17,7 +18,7 @@ import retrofit2.http.Url
 interface MicroServiceApi {
 
     companion object {
-        const val BASE_URL = "http://169.254.142.86:8080"
+        const val BASE_URL = "http://192.168.56.1:8080"
 
     }
 
@@ -76,7 +77,22 @@ interface MicroServiceApi {
         @Url url: String,
 
         ): Call<Covoiturage>
+    @DELETE
+    fun deleteCovoiturage(@Url url: String): Call<ResponseBody>
 
+    @GET
+    fun getParticipantInfo( @Url url: String,
+    ): Call<UserDTO>
+
+    @PUT
+    fun UpdateReservations( @Url url: String,
+    ):  Call<Reservation>
+
+
+    @DELETE
+
+    fun DeleteReservations( @Url url: String,
+    ):  Call<Reservation>
     //   @POST("/participation")
     //  fun postParticipation(@Body participationRequest: ParticipationRequest): Call<ResponseBody>
 }

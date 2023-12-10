@@ -41,9 +41,9 @@ class Interface_driver : AppCompatActivity() {
         )
 
         // Set up RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = Adapter(imageList)
+      //  val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+       // recyclerView.layoutManager = LinearLayoutManager(this)
+      //  recyclerView.adapter = Adapter(imageList)
 
     }
 
@@ -63,7 +63,7 @@ class Interface_driver : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
