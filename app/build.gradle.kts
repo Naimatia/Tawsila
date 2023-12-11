@@ -40,7 +40,8 @@ dependencies {
     implementation ("com.google.android.material:material:1.5.0") // Use the correct version
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-ktx:+")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.22 ") // Keep this version
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.22 ")
+    implementation("com.google.android.gms:play-services-maps:18.2.0") // Keep this version
     testImplementation ("junit:junit:4.13.2") // Keep this version
     androidTestImplementation ("androidx.test.ext:junit:1.1.5") // Keep this version
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1") // Keep this version
@@ -52,7 +53,13 @@ dependencies {
     implementation ("com.squareup.moshi:moshi:1.12.0")
     implementation ("com.squareup.moshi:moshi-kotlin:1.12.0")
 
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+
     implementation ("org.osmdroid:osmdroid-android:6.1.17")
+
+    implementation ("com.github.MKergall:osmbonuspack:6.6.0")
+    implementation ("com.google.maps.android:android-maps-utils:2.3.0")
 
 
 }

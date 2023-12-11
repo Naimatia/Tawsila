@@ -1,203 +1,180 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg1">
+    android:layout_height="match_parent">
 
+
+    <!-- AppBarLayout -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <!-- Deuxième icône à droite -->
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_close_24"
+            android:layout_marginEnd="20dp"
+            app:itemIconTint="@color/bottomnavigation_color_state" />
+
+        <TextView
+            android:id="@+id/textLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Détails de l'annonce"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <org.osmdroid.views.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
+        android:layout_height="360dp" />
 
-    <androidx.cardview.widget.CardView
+</LinearLayout>
+
+</com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Add a LinearLayout for three icons aligned horizontally -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        app:cardCornerRadius="38dp"
-        app:cardElevation="4dp">
+        android:layout_marginTop="422dp"
+        android:background="#DCDCDC">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_directions_car_24"
+            android:layout_margin="10dp" />
+
+        <!-- Icon 2 -->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_play_arrow_24"
+            android:layout_margin="10dp" />
+
+        <!-- Icon 3 -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/profile_image" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_play_arrow_24"
+            android:layout_margin="10dp" />
+        <!-- Icon 3 -->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/baseline_not_listed_location_24" />
+
+    </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:minHeight="450dp"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginTop="475dp">
 
             <TextView
-                android:id="@+id/detailDepartLabel"
+                android:id="@+id/departTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Depart"
+                android:text="Depart "
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/detailDepartEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detailDepartLabel"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="-25dp"
-                android:layout_toEndOf="@+id/detailDepartLabel"
-                android:background="@drawable/border_background"
-                android:elevation="2dp"
-                android:hint="Enter Depart"
-                android:padding="8dp"
-
-                android:fontFamily="@font/bangers"
-                android:textColor="#333333"
-                android:letterSpacing="0.03"
-                android:textAllCaps="true"
-                android:gravity="center_vertical"
-                android:lines="1"/>
 
             <TextView
-                android:id="@+id/detailDestinationLabel"
+                android:id="@+id/destinationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Destination"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_below="@id/detailDepartEditText"
                 android:layout_marginTop="16dp"/>
 
-
-            <TextView
-                android:id="@+id/detailDestinationEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="-25dp"
-                android:layout_toEndOf="@+id/detailDestinationLabel"
-                android:background="@drawable/border_background"
-                android:elevation="2dp"
-                android:hint="Enter Depart"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:fontFamily="@font/bangers"
-            android:textColor="#333333"
-            android:letterSpacing="0.03"
-            android:textAllCaps="true"
-            android:gravity="center_vertical"
-            android:lines="1"
-            />
-            <TextView
-                android:id="@+id/detailDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/detailDateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detailDateLabel"
-                android:layout_marginTop="8dp"
-                android:hint="Enter Date"
-                android:textSize="18sp"
-                android:background="@drawable/border_background"
-                android:elevation="2dp"
-                android:padding="8dp"
-                android:fontFamily="@font/bangers"
-                android:textColor="#333333"
-                android:letterSpacing="0.03"
-                android:textAllCaps="true"
-                android:gravity="center_vertical"
-                android:lines="1"/>
-
-            <TextView
-                android:id="@+id/detailPriceLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_below="@id/detailDateEditText"
-                android:layout_marginTop="16dp"/>
-
-            <TextView
-                android:id="@+id/detailPriceEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detailPriceLabel"
-                android:layout_marginTop="8dp"
-                android:hint=" Price"
-
-                android:background="@drawable/border_background"
-                android:elevation="2dp"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:fontFamily="@font/bangers"
-                android:textColor="#333333"
-                android:letterSpacing="0.03"
-                android:textAllCaps="true"
-                android:gravity="center_vertical"
-                android:lines="1"/>
-
-            <TextView
-                android:id="@+id/detailPhoneLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Call me for more details"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_below="@id/detailDateEditText"
-                android:layout_marginTop="16dp"/>
-
-            <TextView
-                android:id="@+id/detailPhoneEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detailPriceLabel"
-                android:layout_marginTop="8dp"
-                android:hint=" Price"
-
-                android:background="@drawable/border_background"
-                android:elevation="2dp"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:fontFamily="@font/bangers"
-                android:textColor="#333333"
-                android:letterSpacing="0.03"
-                android:textAllCaps="true"
-                android:gravity="center_vertical"
-                android:lines="1"/>
-
-            <!-- Add other EditTexts for additional details -->
-
-            <!-- Add a horizontal line to separate details from the confirmation section -->
             <View
                 android:id="@+id/dividerLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/detailPriceEditText"
                 android:background="@android:color/darker_gray"
                 android:layout_marginTop="16dp"/>
 
-            <!-- Add the confirmation section with buttons -->
+            <TextView
+                android:id="@+id/driverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="naim"
+                android:textSize="20sp"
+                android:fontFamily="@font/bungee"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conducteur" />
+
             <LinearLayout
-                android:id="@+id/confirmationLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/dividerLine"
-                android:layout_marginTop="16dp">
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="-60dp">
 
-                <Button
-                    android:id="@+id/confirmButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Confirmer"
-                    android:layout_marginEnd="8dp"/>
-
-                <!-- Add other buttons as needed -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_overlay="true"
+                    android:src="@drawable/baseline_account_" />
 
             </LinearLayout>
+            <!-- Add the confirmation section with buttons -->
+
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bleu">
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmer"
+            android:textSize="20dp"
+            android:backgroundTint="@android:color/transparent"/>
+
+        <!-- Add other buttons as needed -->
+
+    </RelativeLayout>
 </RelativeLayout>

@@ -90,18 +90,15 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
 
     override fun onItemClick(covoiturage: Covoiturage) {
         // Handle item click, e.g., launch DetailActivity
-        val intent = Intent(this, DetailActivity::class.java)
         val userId: Long = intent.getLongExtra("USER_ID", -1)
+        val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("covoiturage", covoiturage)
         intent.putExtra("USER_ID", userId)
-        Log.e("id", "user id: ${userId}")
+        Log.e("id", "user id: $userId")
         startActivity(intent)
     }
 
     private fun fetchAndDisplayCovoiturages(source: String, destination: String, date: String) {
-        //  val depart = "bizerte"
-        //  val destination = "tunis"
-        //  val date = "2023-11-21"
 
         val baseUrl = "http://169.254.142.86:8080/driver/covsddd/"
         val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"

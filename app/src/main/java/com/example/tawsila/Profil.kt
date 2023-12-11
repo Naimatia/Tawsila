@@ -57,7 +57,7 @@ class Profil : AppCompatActivity() {
                     emailEditText.setText(user?.email)
 
                     // Check and handle profile image
-                    val profileImage = user?.profileImage
+                        val profileImage = user?.profileImage
                     if (profileImage != null) {
                         when (profileImage) {
                             is ByteArray -> {
