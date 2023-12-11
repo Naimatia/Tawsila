@@ -19,7 +19,7 @@ class CovAdapter(private val covoiturageList: List<Covoiturage>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val covoiturage = covoiturageList[position]
-//
+
         holder.depart.text = covoiturage.depart
         holder.destination.text = covoiturage.destination
         holder.price.text = covoiturage.price.toString()
