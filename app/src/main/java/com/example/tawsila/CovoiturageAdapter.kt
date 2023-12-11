@@ -82,21 +82,26 @@ class CovoiturageAdapter(
 
         private fun calculateTimeDifference(covoiturage: Covoiturage): String {
             val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-            try {
-                val departTime = dateFormat.parse(covoiturage.heureDepart)
-                val arriveTime = dateFormat.parse(covoiturage.heureArrive)
 
-                val diff = abs(arriveTime.time - departTime.time)
-                val hours = diff / (60 * 60 * 1000)
-                val minutes = (diff % (60 * 60 * 1000)) / (60 * 1000)
+            // Check if heureDepart and heureArrive are not null
+            if (covoiturage.heureDepart != null && covoiturage.heureArrive != null) {
+                try {
+                    val departTime = dateFormat.parse(covoiturage.heureDepart)
+                    val arriveTime = dateFormat.parse(covoiturage.heureArrive)
 
-                return String.format("%02d:%02d", hours, minutes)
-            } catch (e: ParseException) {
-                e.printStackTrace()
+                    val diff = abs(arriveTime.time - departTime.time)
+                    val hours = diff / (60 * 60 * 1000)
+                    val minutes = (diff % (60 * 60 * 1000)) / (60 * 1000)
+
+                    return String.format("%02d:%02d", hours, minutes)
+                } catch (e: ParseException) {
+                    e.printStackTrace()
+                }
             }
 
             return ""
         }
+
     }
 
     fun setFilteredData(newData: List<Covoiturage>) {
