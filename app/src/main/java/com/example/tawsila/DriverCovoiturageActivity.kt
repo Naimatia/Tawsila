@@ -95,7 +95,7 @@ class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItem
 
     private fun fetchAndDisplayCovoiturages() {
         val userid= intent.getLongExtra("USER_ID", 0)
-        val baseUrl = "http://192.168.56.1:8080/driver/covoituragesDriver/$userid"
+        val baseUrl = "http://169.254.142.86:8080/driver/covoituragesDriver/$userid"
        // val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(baseUrl)
 

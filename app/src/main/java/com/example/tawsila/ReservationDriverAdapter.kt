@@ -115,7 +115,7 @@ class ReservationDriverAdapter(
         }
 
         private fun handleAcceptButtonClick(reservation: Reservation) {
-            val baseUrl = "http://192.168.56.1:3002/participationDriver/${reservation.participationID}"
+            val baseUrl = "http://169.254.142.86:3002/participationDriver/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$url}")
 
@@ -158,7 +158,7 @@ class ReservationDriverAdapter(
 
 
         private fun handleDeletedButtonClick(reservation: Reservation) {
-            val baseUrl = "http://192.168.56.1:3002/participation/${reservation.participationID}"
+            val baseUrl = "http://169.254.142.86:3002/participation/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$baseUrl}")
 
@@ -201,7 +201,7 @@ class ReservationDriverAdapter(
 
         private fun fetchUserDetails(userID: Int) {
             // Use the Retrofit or any other networking library to make the call
-            val baseUrl = "http://192.168.56.1:8080/auth/2" // Replace with your actual user details API endpoint
+            val baseUrl = "http://169.254.142.86:8080/auth/2" // Replace with your actual user details API endpoint
 
             Log.e("URL", "{$baseUrl}")
             val retrofit = Retrofit.Builder()

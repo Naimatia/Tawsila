@@ -51,7 +51,7 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
       //  val idclient = 2
         val  userId = intent.getLongExtra("USER_ID", -1)
         Log.e("id", "user id: $userId")
-        val baseUrl = "http://192.168.1.3:3002/participations/$userId"
+        val baseUrl = "http://169.254.142.86:3002/participations/$userId"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)

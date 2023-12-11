@@ -100,7 +100,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
 
     private fun fetchAndDisplayCovoiturages(source: String, destination: String, date: String) {
 
-        val baseUrl = "http://192.168.56.1:8080/driver/covsddd/"
+        val baseUrl = "http://169.254.142.86:8080/driver/covsddd/"
         val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(url)
 
