@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URLF
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -51,7 +52,7 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
       //  val idclient = 2
         val  userId = intent.getLongExtra("USER_ID", -1)
         Log.e("id", "user id: $userId")
-        val baseUrl = "http://192.168.56.1:3002/participations/$userId"
+        val baseUrl = "${BASE_URLF}/participations/$userId"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)

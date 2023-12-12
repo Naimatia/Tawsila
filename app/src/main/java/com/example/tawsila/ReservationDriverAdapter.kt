@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URL
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URLF
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -115,7 +117,7 @@ class ReservationDriverAdapter(
         }
 
         private fun handleAcceptButtonClick(reservation: Reservation) {
-            val baseUrl = "http://192.168.56.1:3002/participationDriver/${reservation.participationID}"
+            val baseUrl = "${BASE_URLF}/participationDriver/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$url}")
 
@@ -158,7 +160,7 @@ class ReservationDriverAdapter(
 
 
         private fun handleDeletedButtonClick(reservation: Reservation) {
-            val baseUrl = "http://192.168.56.1:3002/participation/${reservation.participationID}"
+            val baseUrl = "http://172.20.10.3:3002/participation/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$baseUrl}")
 
@@ -201,7 +203,7 @@ class ReservationDriverAdapter(
 
         private fun fetchUserDetails(userID: Int) {
             // Use the Retrofit or any other networking library to make the call
-            val baseUrl = "http://169.254.142.86:8080/auth/2" // Replace with your actual user details API endpoint
+            val baseUrl = "${BASE_URL}/auth/2" // Replace with your actual user details API endpoint
 
             Log.e("URL", "{$baseUrl}")
             val retrofit = Retrofit.Builder()

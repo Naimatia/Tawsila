@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URL
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -95,7 +96,7 @@ class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItem
 
     private fun fetchAndDisplayCovoiturages() {
         val userid= intent.getLongExtra("USER_ID", 0)
-        val baseUrl = "http://192.168.56.1:8080/driver/covoituragesDriver/$userid"
+        val baseUrl = "${BASE_URL}/driver/covoituragesDriver/$userid"
        // val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(baseUrl)
 

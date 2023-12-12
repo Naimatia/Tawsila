@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URLF
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonSyntaxException
@@ -221,7 +222,7 @@ class DetailActivity : AppCompatActivity() {
         Log.d("Confirmation", "API Details:\n$requestDetails")
 
         // Construct dynamic URL
-        val baseUrl = "http://192.168.56.1:3002/participation"
+        val baseUrl = "${BASE_URLF}/participation"
         val dynamicUrl = "${baseUrl}?clientID=${participationRequest.clientID}&carpoolingID=${participationRequest.carpoolingID}&etat=${participationRequest.etat}"
         Log.d("api", "API :\n$dynamicUrl")
 
