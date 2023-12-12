@@ -2,6 +2,7 @@ package com.example.tawsila
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +37,8 @@ class Interface_client : AppCompatActivity() {
         editTextSource = findViewById(R.id.editTextSource)
         editTextDestination = findViewById(R.id.editTextDestination)
         buttonRecherche = findViewById(R.id.buttonRecherche)
+
+        editTextDate.setHintTextColor(Color.WHITE)
 
         // Add a click listener to the "Recherche" button
         buttonRecherche.setOnClickListener {

@@ -11,10 +11,10 @@
 
     <ImageView
         android:id="@+id/logoImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:transitionName="logo_image"
-        android:src="@mipmap/tawsila" />
+        android:src="@mipmap/home_back" />
 
     <TextView
         android:layout_width="wrap_content"

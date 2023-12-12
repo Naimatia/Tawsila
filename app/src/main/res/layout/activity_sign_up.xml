@@ -10,9 +10,9 @@
     android:padding="20dp">
 
     <ImageView
-        android:layout_width="179dp"
-        android:layout_height="122dp"
-        android:src="@mipmap/tawsila"
+        android:layout_width="180dp"
+        android:layout_height="140dp"
+        android:src="@mipmap/home_back"
         android:transitionName="logo image" />
 
     <TextView

@@ -12,7 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@drawable/minimalist">
+
 
         <!-- Main content FrameLayout -->
         <FrameLayout
@@ -37,7 +38,7 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:background="@color/white"
+                        android:background="@color/bleu"
                         app:layout_scrollFlags="scroll|enterAlways">
 
 
@@ -49,7 +50,7 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/bungee"
                             android:text="Tawsila"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="30dp" />
 
                         <!-- Espace pour séparer le texte des icônes -->
@@ -77,35 +78,30 @@
                             android:src="@drawable/call_24" />
                     </androidx.appcompat.widget.Toolbar>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="405dp">
-                        <LinearLayout
-                            android:background="@color/bleu"
-                            android:layout_width="match_parent"
-                            android:layout_height="250dp"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                </com.google.android.material.appbar.AppBarLayout>
 
-                            <TextView
+
+                         <TextView
                                 android:id="@+id/textCentered"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="Un vaste choix de trajets à petits prix"
                                 android:textAlignment="center"
-                                android:layout_marginTop="-100dp"
+                                android:layout_marginTop="100dp"
                                 android:textColor="@color/white"
                                 android:fontFamily="@font/bungee"
                                 android:textSize="20sp" />
 
-                        </LinearLayout>
                         <androidx.cardview.widget.CardView
                             android:layout_width="350dp"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="100dp"
-                            app:cardCornerRadius="20dp">
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="200dp"
+                            android:layout_marginLeft="25dp"
+                            app:cardCornerRadius="20dp"
+                            android:backgroundTint="@android:color/transparent">
 
 
                             <LinearLayout
@@ -119,13 +115,17 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:startIconDrawable="@drawable/baseline_my_location"
+                                    app:startIconTint="@color/white"
+                                    app:hintTextColor="@color/white"
                                     app:startIconContentDescription="Source Icon">
 
                                     <EditText
                                         android:id="@+id/editTextSource"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
                                         android:hint="Départ"
+                                        android:textColorHint="@color/white"
                                         android:inputType="text" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,14 +134,18 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:startIconDrawable="@drawable/add_location"
-                                    app:startIconContentDescription="Destination Icon">
+                                    app:startIconContentDescription="Destination Icon"
+                                    app:hintTextColor="@color/white"
+                                    app:startIconTint="@color/white">
 
                                     <EditText
                                         android:id="@+id/editTextDestination"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
                                         android:hint="Destination"
-                                        android:inputType="text" />
+                                        android:inputType="text"
+                                        android:textColorHint="@color/white" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
                                 <!-- Date Input -->
@@ -149,12 +153,16 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:startIconDrawable="@drawable/baseline_calendar"
-                                    app:startIconContentDescription="Date Icon">
+                                    app:startIconContentDescription="Date Icon"
+                                    app:startIconTint="@color/white"
+                                    app:hintTextColor="@color/white">
 
                                     <EditText
                                         android:id="@+id/editTextDate"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
+                                        android:textColorHint="@color/white"
                                         android:hint="Aujourd'hui"
                                         android:inputType="date" />
                                 </com.google.android.material.textfield.TextInputLayout>
@@ -164,6 +172,7 @@
                                     android:id="@+id/buttonRecherche"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:backgroundTint="@android:color/transparent"
                                     android:text="Recherche" />
 
                             </LinearLayout>
@@ -171,8 +180,6 @@
 
                         </androidx.cardview.widget.CardView>
 
-                    </RelativeLayout>
-                </com.google.android.material.appbar.AppBarLayout>
 
 
 
