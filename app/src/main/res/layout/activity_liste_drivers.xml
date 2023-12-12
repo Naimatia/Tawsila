@@ -48,7 +48,7 @@
                             android:layout_gravity="start"
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/bungee"
-                            android:text="Tawsila"
+                            android:text="@string/tawsila"
                             android:textColor="@color/white"
                             android:textSize="30dp" />
 
@@ -76,22 +76,30 @@
                             android:layout_marginEnd="20dp"
                             android:src="@drawable/call_24" />
                     </androidx.appcompat.widget.Toolbar>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewDrivers"
+                    <LinearLayout
+                        android:id="@+id/linearLayoutDriversContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/listeDriversButton"
-                        android:visibility="visible" />
-
-                    <Button
-                        android:id="@+id/listeDriversButton"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Liste des Conducteurs"
-                        android:layout_gravity="center"/>
+                        android:orientation="vertical">
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewDrivers"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="?attr/actionBarSize"
+                            android:clipToPadding="false"/>
+                        <FrameLayout
+                            android:id="@+id/fragmentContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/listeDriversButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/liste_des_drivers"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
 
                 </com.google.android.material.appbar.AppBarLayout>
 
@@ -126,4 +134,6 @@
         </FrameLayout>
 
     </RelativeLayout>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

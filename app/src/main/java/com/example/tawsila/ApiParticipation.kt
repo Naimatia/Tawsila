@@ -12,7 +12,7 @@ import retrofit2.http.Url
 interface ApiParticipation {
 
     companion object {
-        const val BASE_URL = "http://192.168.56.1:3002"
+        const val BASE_URL = "http://172.20.10.3:3002"
     }
 
 

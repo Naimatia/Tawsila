@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URL
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -100,7 +101,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
 
     private fun fetchAndDisplayCovoiturages(source: String, destination: String, date: String) {
 
-        val baseUrl = "http://192.168.56.1:8080/driver/covsddd/"
+        val baseUrl = "${BASE_URL}/driver/covsddd/"
         val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(url)
 
