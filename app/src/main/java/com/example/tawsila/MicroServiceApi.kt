@@ -54,11 +54,11 @@ interface MicroServiceApi {
     fun updateUser(@Path("id") userId: Long, @Body updatedUser: UserDTO): Call<String>
 
     @GET("/auth/drivers")
-    fun getDrivers(): Call<List<UserDTO>>
+    fun getDrivers(): Call<List<ClientDTO>>
     @DELETE("/auth/{id}")
     fun deleteUserById(@Path("id") userId: Long): Call<String>
     @GET("/auth/clients")
-    fun getClients(): Call<List<UserDTO>>
+    fun getClients(): Call<List<ClientDTO>>
     @GET("/driver/covoiturages")
     fun getCovs(): Call<List<Covoiturage>>
 

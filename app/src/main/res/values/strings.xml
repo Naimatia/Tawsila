@@ -12,6 +12,14 @@
     </string-array>
     <string name="gender_hint">Click to chose Role</string>
     <string name="participation_id_icon" />
+    <string name="liste_des_clients">Liste des Clients</string>
+    <string name="tawsila">Tawsila</string>
+    <string name="liste_des_drivers">Liste des Drivers</string>
+    <string name="delete">Delete</string>
+    <string name="driver_details">Driver Details</string>
+    <string name="driver_name">Driver Name</string>
+    <string name="client_name">Client Name</string>
+    <string name="client_details">Client Details</string>
 
 
 </resources>
