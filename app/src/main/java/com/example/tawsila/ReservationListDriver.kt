@@ -76,7 +76,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
 
 
 
-        val baseUrl = "http://169.254.142.86:3002/participationDriver/60"
+        val baseUrl = "http://192.168.56.1:3002/participationDriver/60"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)

@@ -115,7 +115,7 @@ class ReservationDriverAdapter(
         }
 
         private fun handleAcceptButtonClick(reservation: Reservation) {
-            val baseUrl = "http://169.254.142.86:3002/participationDriver/${reservation.participationID}"
+            val baseUrl = "http://192.168.56.1:3002/participationDriver/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$url}")
 
@@ -158,7 +158,7 @@ class ReservationDriverAdapter(
 
 
         private fun handleDeletedButtonClick(reservation: Reservation) {
-            val baseUrl = "http://169.254.142.86:3002/participation/${reservation.participationID}"
+            val baseUrl = "http://192.168.56.1:3002/participation/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$baseUrl}")
 

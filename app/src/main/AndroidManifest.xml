@@ -64,6 +64,9 @@
         <activity
             android:name=".ReservationListDriver"
             android:exported="false" />
+        <activity
+            android:name=".ReservationAdapter"
+            android:exported="false" />
 
         <activity
             android:name=".DriverCovoiturageActivity"

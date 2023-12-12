@@ -57,7 +57,7 @@ class ReservationAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val participationID: TextView = itemView.findViewById(R.id.participationIDTextView)
-       // val clientID: TextView = itemView.findViewById(R.id.clientIDTextView)
+        // val clientID: TextView = itemView.findViewById(R.id.clientIDTextView)
         //val carpoolingID: TextView = itemView.findViewById(R.id.carpoolingIDTextView)
         val etat: TextView = itemView.findViewById(R.id.etatTextView)
         val departureTextView: TextView = itemView.findViewById(R.id.departTextView)
@@ -93,7 +93,7 @@ class ReservationAdapter(
 
         private fun fetchCovoiturageDetails(carpoolingID: Int) {
             // Use the Retrofit or any other networking library to make the call
-            val baseUrl = "http://169.254.142.86:8080/driver/covoiturages/$carpoolingID"
+            val baseUrl = "http://192.168.56.1:8080/driver/covoiturages/$carpoolingID"
 
             Log.e("URL", "{$baseUrl}")
             val retrofit = Retrofit.Builder()
