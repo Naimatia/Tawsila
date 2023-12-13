@@ -2,12 +2,14 @@ package com.example.tawsila
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tawsila.UserDTO
-import com.example.tawsila.R
 
-class DriverAdapter(private val driversList: List<UserDTO>) : RecyclerView.Adapter<DriverAdapter.ViewHolder>() {
+
+class DriverAdapter( private var DriverList: List<ClientDTO>,
+                     private val onDeleteClickListener: OnDeleteClickListener
+) : RecyclerView.Adapter<DriverAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_driver_cardview, parent, false)
@@ -15,20 +17,38 @@ class DriverAdapter(private val driversList: List<UserDTO>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val driver = driversList[position]
+        val driver = DriverList[position]
 
         holder.nameTextView.text = driver.name
         holder.emailTextView.text = driver.email
-        // Ajoutez ici d'autres données du conducteur si nécessaire
+
+        // Set the click listener for the delete button
+        holder.deleteButton.setOnClickListener {
+            onDeleteClickListener.onDeleteClick(driver.id)
+        }
     }
 
     override fun getItemCount(): Int {
-        return driversList.size
+        return DriverList.size
     }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.driverName)
         val emailTextView: TextView = itemView.findViewById(R.id.driverDetails)
-        // Ajoutez ici d'autres vues pour les données supplémentaires du conducteur si nécessaire
+        val deleteButton: Button = itemView.findViewById(R.id.deleteButtonD)
+
+        init {
+            // Set the click listener for the delete button
+            deleteButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val driver = DriverList[position]
+                    onDeleteClickListener.onDeleteClick(driver.id)
+                }
+            }
+        }
     }
+    interface OnDeleteClickListener {
+        fun onDeleteClick(userId: Long)
+    }
+
 }

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -42,7 +43,8 @@ dependencies {
     implementation("androidx.core:core-ktx:+")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.22 ")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation("com.android.volley:volley:1.2.1") // Keep this version
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.firebase:firebase-database-ktx:20.3.0") // Keep this version
     testImplementation ("junit:junit:4.13.2") // Keep this version
     androidTestImplementation ("androidx.test.ext:junit:1.1.5") // Keep this version
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1") // Keep this version
@@ -62,5 +64,8 @@ dependencies {
     implementation ("com.github.MKergall:osmbonuspack:6.6.0")
     implementation ("com.google.maps.android:android-maps-utils:2.3.0")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation ("com.google.firebase:firebase-messaging:23.0.0")
+    implementation ("com.google.firebase:firebase-messaging:23.4.0")
+
 
 }

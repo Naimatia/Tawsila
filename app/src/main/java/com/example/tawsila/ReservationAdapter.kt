@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URL
 import com.example.tawsila.Reservation
 import com.example.tawsila.R
 import com.google.gson.GsonBuilder
@@ -93,7 +94,7 @@ class ReservationAdapter(
 
         private fun fetchCovoiturageDetails(carpoolingID: Int) {
             // Use the Retrofit or any other networking library to make the call
-            val baseUrl = "http://192.168.56.1:8080/driver/covoiturages/$carpoolingID"
+            val baseUrl = "${BASE_URL}/driver/covoiturages/$carpoolingID"
 
             Log.e("URL", "{$baseUrl}")
             val retrofit = Retrofit.Builder()
