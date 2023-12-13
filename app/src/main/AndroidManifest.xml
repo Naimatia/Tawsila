@@ -80,6 +80,9 @@
         <activity
             android:name=".ParticiDetailsadmin"
             android:exported="false" />
+        <activity
+            android:name=".Admin_profile"
+            android:exported="false" />
 
 
         <activity android:name=".ListeReservationActivity">

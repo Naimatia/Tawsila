@@ -129,9 +129,16 @@ class ListeDriversActivity : AppCompatActivity(),DriverAdapter.OnDeleteClickList
         val  userId = intent.getLongExtra("USER_ID", -1)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.selectedItemId = R.id.bottom_home
+        bottomNavigationView.selectedItemId = R.id.Acceuil
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.Acceuil -> {
+                    val intent = Intent(this, Interface_admin::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
                 R.id.liste_driver -> {
                     val intent = Intent(this, ListeDriversActivity::class.java)
                     intent.putExtra("USER_ID", userId)
@@ -147,7 +154,14 @@ class ListeDriversActivity : AppCompatActivity(),DriverAdapter.OnDeleteClickList
                     true
                 }
                 R.id.carpooling -> {
-                    val intent = Intent(this, profil_image::class.java)
+                    val intent = Intent(this, ListCovAdmin::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.profile_image -> {
+                    val intent = Intent(this, Admin_profile::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
