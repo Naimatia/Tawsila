@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -62,5 +63,8 @@ dependencies {
     implementation ("com.github.MKergall:osmbonuspack:6.6.0")
     implementation ("com.google.maps.android:android-maps-utils:2.3.0")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation ("com.google.firebase:firebase-messaging:23.0.0")
+    implementation ("com.google.firebase:firebase-messaging:23.4.0")
+
 
 }
