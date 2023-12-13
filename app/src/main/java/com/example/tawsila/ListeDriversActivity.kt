@@ -49,11 +49,11 @@ class ListeDriversActivity : AppCompatActivity() {
     private fun fetchAndDisplayDrivers() {
         // ... (votre code pour récupérer les conducteurs depuis l'API)
 
-        val call: Call<List<UserDTO>> = microserviceApi.getDrivers()
-        call.enqueue(object : Callback<List<UserDTO>> {
-            override fun onResponse(call: Call<List<UserDTO>>, response: Response<List<UserDTO>>) {
+        val call: Call<List<ClientDTO>> = microserviceApi.getDrivers()
+        call.enqueue(object : Callback<List<ClientDTO>> {
+            override fun onResponse(call: Call<List<ClientDTO>>, response: Response<List<ClientDTO>>) {
                 if (response.isSuccessful) {
-                    val driversList: List<UserDTO>? = response.body()
+                    val driversList: List<ClientDTO>? = response.body()
                     if (driversList != null) {
                         driverAdapter = DriverAdapter(driversList)
                         recyclerView.adapter = driverAdapter // Attacher l'adaptateur au RecyclerView
@@ -66,7 +66,7 @@ class ListeDriversActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<UserDTO>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ClientDTO>>, t: Throwable) {
                 // Gérer les erreurs réseau ou autres pendant la récupération des conducteurs
                 Log.e("ListeDriversActivity", "Erreur: ${t.message}")
                 t.printStackTrace()

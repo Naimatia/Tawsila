@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class DriverAdapter( private var DriverList: List<ClientDTO>,
-                     private val onDeleteClickListener: OnDeleteClickListener
+class DriverAdapter(
+    private var DriverList: List<ClientDTO>
 ) : RecyclerView.Adapter<DriverAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +24,7 @@ class DriverAdapter( private var DriverList: List<ClientDTO>,
 
         // Set the click listener for the delete button
         holder.deleteButton.setOnClickListener {
-            onDeleteClickListener.onDeleteClick(driver.id)
+          //  onDeleteClickListener.onDeleteClick(driver.id)
         }
     }
 
@@ -42,7 +42,7 @@ class DriverAdapter( private var DriverList: List<ClientDTO>,
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val driver = DriverList[position]
-                    onDeleteClickListener.onDeleteClick(driver.id)
+                   // onDeleteClickListener.onDeleteClick(driver.id)
                 }
             }
         }

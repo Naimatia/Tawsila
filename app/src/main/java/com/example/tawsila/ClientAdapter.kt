@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-class ClientAdapter( private var clientList: List<ClientDTO>,
-                     private val onDeleteClickListener: OnDeleteClickListener
+class ClientAdapter(
+    private var clientList: List<ClientDTO>
 ) : RecyclerView.Adapter<ClientAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,7 +23,7 @@ class ClientAdapter( private var clientList: List<ClientDTO>,
 
         // Set the click listener for the delete button
         holder.deleteButton.setOnClickListener {
-            onDeleteClickListener.onDeleteClick(client.id)
+         //   onDeleteClickListener.onDeleteClick(client.id)
         }
     }
 
@@ -42,7 +42,7 @@ class ClientAdapter( private var clientList: List<ClientDTO>,
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val client = clientList[position]
-                    onDeleteClickListener.onDeleteClick(client.id)
+                  //  onDeleteClickListener.onDeleteClick(client.id)
                 }
             }
         }
