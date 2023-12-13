@@ -1,307 +1,302 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg1">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg1">
 
     <!-- Add the title TextView -->
     <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ajouter Covoiturage"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-light"
-        android:letterSpacing="0.05"
-        android:textStyle="bold" />
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter Covoiturage"
+            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="0.05"
+            android:textStyle="bold" />
 
     <!-- CardView for user details -->
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:cardCornerRadius="38dp"
-        app:cardElevation="4dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="38dp"
+            app:cardElevation="4dp">
 
         <!-- LinearLayout for user details -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="450dp"
-            android:orientation="vertical"
-            android:padding="16dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="450dp"
+                android:orientation="vertical"
+                android:padding="16dp">
 
             <!-- Lieu de départ TextView -->
             <TextView
-                android:id="@+id/titleDeparture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lieu de départ"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <!-- TextInputLayout for Lieu de départ -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/arriveé1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:hint="choisissez votre lieu de départ"
-                android:layout_height="wrap_content">
-
-                <!-- Lieu de arriver TextView -->
-                <TextView
-                    android:id="@+id/titlearriver"
+                    android:id="@+id/titleDeparture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lieu de arriver"
+                    android:text="Lieu de départ"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
+            <!-- TextInputLayout for Lieu de départ -->
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/arriveé1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:hint="choisissez votre lieu de départ"
+                    android:layout_height="wrap_content">
+
+                <!-- Lieu de arriver TextView -->
+                <TextView
+                        android:id="@+id/titlearriver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lieu de arriver"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
                 <!-- TextInputEditText for Lieu de arriver -->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextarriveé1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
+                        android:id="@+id/editTextarriveé1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- TextInputLayout for Date et Heures -->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/départ1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:hint="choisissez votre lieu d'arrivée"
-                android:layout_height="wrap_content">
+                    android:id="@+id/départ1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:hint="choisissez votre lieu d'arrivée"
+                    android:layout_height="wrap_content">
 
                 <!-- Date et Heures TextView -->
                 <TextView
-                    android:id="@+id/titledateetheur"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date et Heures "
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                        android:id="@+id/titledateetheur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date et Heures "
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
 
                 <!-- TextInputEditText for Date et Heures -->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextdépart1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
+                        android:id="@+id/editTextdépart1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- LinearLayout for Aller time selection -->
             <LinearLayout
-                android:id="@+id/allerLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="100dp"
-                android:orientation="horizontal">
+                    android:id="@+id/allerLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="100dp"
+                    android:orientation="horizontal">
                 <!-- TextViews or other views can be added dynamically here -->
             </LinearLayout>
 
             <!-- LinearLayout for table layout -->
             <LinearLayout
-                android:id="@+id/tableLayout1"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="50dp"
-                android:orientation="horizontal">
+                    android:id="@+id/tableLayout1"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginHorizontal="50dp"
+                    android:orientation="horizontal">
                 <!-- TextViews or other views can be added dynamically here -->
             </LinearLayout>
 
             <!-- TextView for displaying selected days -->
             <TextView
-                android:id="@+id/selectedDaysTextView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text=""
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <!-- LinearLayout for Aller time selection with TextView and selected time -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:gravity="left"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-                <TextView
-                    android:id="@+id/allerTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aller"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <!-- TextView for displaying the selected time for Aller -->
-                <TextView
-                    android:id="@+id/selectedTimeAllerTextView"
+                    android:id="@+id/selectedDaysTextView1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="16dp"
                     android:text=""
-                    android:layout_marginLeft="12dp"
-                    android:paddingRight="57dp"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
+
+            <!-- LinearLayout for Aller time selection with TextView and selected time -->
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:gravity="left"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+                <TextView
+                        android:id="@+id/allerTextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aller"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                <!-- TextView for displaying the selected time for Aller -->
+                <TextView
+                        android:id="@+id/selectedTimeAllerTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:layout_marginLeft="12dp"
+                        android:paddingRight="57dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Horizontal divider or other visual separation if needed -->
 
             <!-- LinearLayout for Retour time selection with TextView and selected time -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:gravity="left"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:gravity="left"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <TextView
-                    android:id="@+id/retourTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Retour"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                        android:id="@+id/retourTextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Retour"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
 
                 <!-- TextView for displaying the selected time for Retour -->
                 <TextView
-                    android:id="@+id/selectedTimeRetour"
-                    android:layout_width="match_parent"
+                        android:id="@+id/selectedTimeRetour"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="12dp"
+                        android:paddingRight="69dp"
+                        android:text=""
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <TextView
+                    android:id="@+id/prix"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginLeft="12dp"
-                    android:paddingRight="69dp"
-                    android:text=""
+                    android:text="Prix"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:textStyle="bold" />
 
-            <!-- Music, Smoking, Baggage Preferences -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center">
+            <!-- TextInputLayout for Prix -->
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/prixLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:hint="Entrez le prix en DT"
+                    android:layout_height="wrap_content">
 
-                <!-- Switch for Music -->
-                <Switch
-                    android:id="@+id/switchMusic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Musique" />
+                <!-- TextInputEditText for Prix -->
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextPrix"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Switch for Smoking -->
-                <Switch
-                    android:id="@+id/switchSmoking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fumer"
-                    android:layout_marginStart="20dp" />
+            <!-- Commentaire TextView -->
 
-                <!-- Switch for Baggage -->
-                <Switch
-                    android:id="@+id/switchBaggage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bagages"
-                    android:layout_marginStart="20dp" />
-            </LinearLayout>
 
             <!-- Commentaire TextView -->
             <TextView
-                android:id="@+id/commentaire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="commentaire"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                    android:id="@+id/commentaire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="commentaire"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
 
             <!-- TextInputLayout for Commentaire -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ariveé"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:hint="écrire un commentaire"
-                    android:layout_height="210dp">
+                        android:id="@+id/ariveé"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:hint="écrire un commentaire"
+                        android:layout_height="210dp">
 
                     <!-- TextInputEditText for Commentaire -->
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextarrveé"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:inputType="text" />
+                            android:id="@+id/editTextarrveé"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <!-- LinearLayout for button "Ajouter" -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
                 <Button
-                    android:id="@+id/btnSuivant1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ajouter  "
-                    android:layout_marginTop="0dp"
-                    android:onClick="onSuivantClick" />
+                        android:id="@+id/btnSuivant1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ajouter  "
+                        android:layout_marginTop="0dp"
+                        android:onClick="onSuivantClick" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- CoordinatorLayout for BottomAppBar -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <!-- BottomAppBar -->
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/bleu"
-            app:contentInsetStart="0dp"
-            app:fabCradleMargin="12dp"
-            app:fabCradleRoundedCornerRadius="60dp"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior">
+                android:id="@+id/bottomAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/bleu"
+                app:contentInsetStart="0dp"
+                app:fabCradleMargin="12dp"
+                app:fabCradleRoundedCornerRadius="60dp"
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior">
 
             <!-- BottomNavigationView -->
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:theme="@style/BottomNavThem"
-                app:elevation="0dp"
-                app:itemIconTint="@color/bottomnavigation_color_state"
-                app:itemTextColor="@color/bottomnavigation_color_state"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_navigation_menu" />
+                    android:id="@+id/bottom_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:theme="@style/BottomNavThem"
+                    app:elevation="0dp"
+                    app:itemIconTint="@color/bottomnavigation_color_state"
+                    app:itemTextColor="@color/bottomnavigation_color_state"
+                    app:labelVisibilityMode="labeled"
+                    app:menu="@menu/bottom_navigation_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>
