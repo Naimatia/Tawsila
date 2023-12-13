@@ -1,302 +1,280 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg1">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    tools:context=".ListCovAdmin">
 
-    <!-- Add the title TextView -->
-    <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ajouter Covoiturage"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-light"
-            android:letterSpacing="0.05"
-            android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-    <!-- CardView for user details -->
-    <androidx.cardview.widget.CardView
+        <!-- Main content FrameLayout -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            app:cardCornerRadius="38dp"
-            app:cardElevation="4dp">
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container" >
 
-        <!-- LinearLayout for user details -->
-        <LinearLayout
+            <!-- CoordinatorLayout for BottomAppBar -->
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="450dp"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent">
 
-            <!-- Lieu de départ TextView -->
-            <TextView
-                    android:id="@+id/titleDeparture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lieu de départ"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                <!-- AppBarLayout -->
 
-            <!-- TextInputLayout for Lieu de départ -->
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/arriveé1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
                     android:layout_width="match_parent"
-                    android:hint="choisissez votre lieu de départ"
-                    android:layout_height="wrap_content">
+                    android:layout_height="661dp">
 
-                <!-- Lieu de arriver TextView -->
-                <TextView
-                        android:id="@+id/titlearriver"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lieu de arriver"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/bleu"
+                        app:layout_scrollFlags="scroll|enterAlways">
 
-                <!-- TextInputEditText for Lieu de arriver -->
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextarriveé1"
+
+                        <TextView
+                            android:id="@+id/textLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/bungee"
+                            android:text="Tawsila"
+                            android:textColor="@color/white"
+                            android:textSize="30dp" />
+
+                        <!-- Espace pour séparer le texte des icônes -->
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <!-- Icône à droite -->
+                        <ImageView
+                            android:id="@+id/iconRight1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/car_crash_24" />
+
+                        <!-- Deuxième icône à droite -->
+                        <ImageView
+                            android:id="@+id/iconRight2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/call_24" />
+                    </androidx.appcompat.widget.Toolbar>
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_margin="30dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="20dp"
+                        android:background="@drawable/bg1"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp">
 
-            <!-- TextInputLayout for Date et Heures -->
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/départ1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:hint="choisissez votre lieu d'arrivée"
-                    android:layout_height="wrap_content">
-
-                <!-- Date et Heures TextView -->
-                <TextView
-                        android:id="@+id/titledateetheur"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Date et Heures "
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-
-                <!-- TextInputEditText for Date et Heures -->
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextdépart1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- LinearLayout for Aller time selection -->
-            <LinearLayout
-                    android:id="@+id/allerLayout1"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="100dp"
-                    android:orientation="horizontal">
-                <!-- TextViews or other views can be added dynamically here -->
-            </LinearLayout>
-
-            <!-- LinearLayout for table layout -->
-            <LinearLayout
-                    android:id="@+id/tableLayout1"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginHorizontal="50dp"
-                    android:orientation="horizontal">
-                <!-- TextViews or other views can be added dynamically here -->
-            </LinearLayout>
-
-            <!-- TextView for displaying selected days -->
-            <TextView
-                    android:id="@+id/selectedDaysTextView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text=""
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-            <!-- LinearLayout for Aller time selection with TextView and selected time -->
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:gravity="left"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-                <TextView
-                        android:id="@+id/allerTextView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Aller"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-
-                <!-- TextView for displaying the selected time for Aller -->
-                <TextView
-                        android:id="@+id/selectedTimeAllerTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=""
-                        android:layout_marginLeft="12dp"
-                        android:paddingRight="57dp"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Horizontal divider or other visual separation if needed -->
-
-            <!-- LinearLayout for Retour time selection with TextView and selected time -->
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:gravity="left"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-                <TextView
-                        android:id="@+id/retourTextView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Retour"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-
-                <!-- TextView for displaying the selected time for Retour -->
-                <TextView
-                        android:id="@+id/selectedTimeRetour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginLeft="12dp"
-                        android:paddingRight="69dp"
-                        android:text=""
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-            </LinearLayout>
-
-
-            <TextView
-                    android:id="@+id/prix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Prix"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-            <!-- TextInputLayout for Prix -->
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/prixLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:hint="Entrez le prix en DT"
-                    android:layout_height="wrap_content">
-
-                <!-- TextInputEditText for Prix -->
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextPrix"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Commentaire TextView -->
-
-
-            <!-- Commentaire TextView -->
-            <TextView
-                    android:id="@+id/commentaire"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="commentaire"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-            <!-- TextInputLayout for Commentaire -->
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="95dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/ariveé"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:hint="écrire un commentaire"
-                        android:layout_height="210dp">
-
-                    <!-- TextInputEditText for Commentaire -->
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editTextarrveé"
+                        <ScrollView
                             android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                            android:layout_height="wrap_content">
 
-            <!-- LinearLayout for button "Ajouter" -->
-            <LinearLayout
-                    android:orientation="horizontal"
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="24dp">
+
+                                <TextView
+                                    android:id="@+id/text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="10"
+                                    android:layout_marginTop="8dp"
+                                    android:hint="Add Carpooling"
+                                    android:paddingLeft="10dp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/black"/>
+
+                                <EditText
+                                    android:id="@+id/editDepart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Depart"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editDestination"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Destination"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editPrice"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Price"
+                                    android:textColor="@color/black"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Date"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editPlace"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Place"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editPhone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Phone"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+                                <EditText
+                                    android:id="@+id/editBagage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Bagage"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editMarque"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Marque"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editheureDepart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Class"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+                                <EditText
+                                    android:id="@+id/editheureArrivee"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:drawablePadding="8dp"
+                                    android:hint="Arriving Time"
+                                    android:textColor="@color/black"
+                                    android:textColorHighlight="@color/cardview_dark_background"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="20dp"/>
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <Button
+                                        android:id="@+id/buttonAjouterCours"
+                                        android:layout_width="140dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="16dp"
+                                        android:text="Add"
+                                        android:textStyle="bold"/>
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                    </ScrollView>
+                    </androidx.cardview.widget.CardView>
+
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+                <!-- BottomAppBar -->
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottomAppBar"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-                <Button
-                        android:id="@+id/btnSuivant1"
-                        android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/bleu"
+                    app:contentInsetStart="0dp">
+
+                    <!-- BottomNavigationView -->
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom_navigation"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ajouter  "
-                        android:layout_marginTop="0dp"
-                        android:onClick="onSuivantClick" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                        android:background="@android:color/transparent"
+                        android:theme="@style/BottomNavThem"
+                        app:elevation="0dp"
+                        app:itemIconTint="@color/bottomnavigation_color_state"
+                        app:itemTextColor="@color/bottomnavigation_color_state"
+                        app:labelVisibilityMode="labeled"
+                        app:menu="@menu/menu_admin" />
 
-    <!-- CoordinatorLayout for BottomAppBar -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <!-- BottomAppBar -->
-        <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottomAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_gravity="bottom"
-                android:backgroundTint="@color/bleu"
-                app:contentInsetStart="0dp"
-                app:fabCradleMargin="12dp"
-                app:fabCradleRoundedCornerRadius="60dp"
-                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior">
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <!-- BottomNavigationView -->
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:theme="@style/BottomNavThem"
-                    app:elevation="0dp"
-                    app:itemIconTint="@color/bottomnavigation_color_state"
-                    app:itemTextColor="@color/bottomnavigation_color_state"
-                    app:labelVisibilityMode="labeled"
-                    app:menu="@menu/bottom_navigation_menu" />
-        </com.google.android.material.bottomappbar.BottomAppBar>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</RelativeLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
+

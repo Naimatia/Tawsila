@@ -1,354 +1,225 @@
 package com.example.tawsila
 
-import android.annotation.SuppressLint
+
+
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
-import android.view.View
+import android.widget.Button
+import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URL
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.nio.charset.Charset
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
-class driver_trajet : AppCompatActivity() {
-    private val selectedDays = mutableListOf<String>()
-    private lateinit var selectedDaysTextView: TextView
-    private lateinit var allerLayout: LinearLayout
-    private lateinit var tableLayout: LinearLayout
-    private lateinit var allerCell: TextView
-    private lateinit var regulierCell: TextView
-    private lateinit var selectedTimeTextView: TextView
-    private lateinit var selectedTimeAllerTextView: TextView
-    private lateinit var selectedTimeRetourTextView: TextView
+class driver_trajet: AppCompatActivity() {
+    private lateinit var editDepart: EditText
+    private lateinit var editDestination: EditText
+    private lateinit var editPrice: EditText
+    private lateinit var editDate: EditText
+    private lateinit var editPlace: EditText
+    private lateinit var editPhone: EditText
+    private lateinit var editBagage: EditText
+    private lateinit var editMarque: EditText
+    private lateinit var editHeureDepart: EditText
+    private lateinit var editHeureArrivee: EditText
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.driver_trajet)
 
-        allerLayout = findViewById(R.id.allerLayout1)
-        tableLayout = findViewById(R.id.tableLayout1)
-        selectedDaysTextView = findViewById(R.id.selectedDaysTextView1)
-        selectedTimeAllerTextView = findViewById(R.id.selectedTimeAllerTextView)
+        editDepart = findViewById(R.id.editDepart)
+        editDestination = findViewById(R.id.editDestination)
+        editPrice = findViewById(R.id.editPrice)
+        editDate = findViewById(R.id.editDate)
+        editPlace = findViewById(R.id.editPlace)
+        editPhone = findViewById(R.id.editPhone)
+        editBagage = findViewById(R.id.editBagage)
+        editMarque = findViewById(R.id.editMarque)
+        editHeureDepart = findViewById(R.id.editheureDepart)
+        editHeureArrivee = findViewById(R.id.editheureArrivee)
 
-        selectedTimeTextView = findViewById(R.id.selectedTimeAllerTextView) // Initialize selectedTimeTextView
+        val datePicker = DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+            val selectedDate = Calendar.getInstance()
+            selectedDate.set(Calendar.YEAR, year)
+            selectedDate.set(Calendar.MONTH, monthOfYear)
+            selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-        // Add "Aller" and "Regulier" cells to the "Aller" layout
-        allerCell = createCell("Aller", true)
-        regulierCell = createCell("Regulier", false)
-        allerLayout.addView(allerCell)
-        allerLayout.addView(regulierCell)
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            editDate.setText(dateFormat.format(selectedDate.time))
+        }
 
-        // Simulate a click on the "Regulier" cell
-        toggleCellState(regulierCell, "Regulier")
+        editDate.setOnClickListener {
+            val currentDate = Calendar.getInstance()
+            val year = currentDate.get(Calendar.YEAR)
+            val month = currentDate.get(Calendar.MONTH)
+            val day = currentDate.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this, datePicker, day, month, year)
+            datePickerDialog.show()
+        }
+
+        // Configuration du TimePicker pour l'heure de départ
+        val timePicker = TimePickerDialog.OnTimeSetListener { _: TimePicker, hourOfDay: Int, minute: Int ->
+            val selectedTime = Calendar.getInstance()
+            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            selectedTime.set(Calendar.MINUTE, minute)
+
+            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            editHeureDepart.setText(timeFormat.format(selectedTime.time))
+        }
+
+        editHeureDepart.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val minute = currentTime.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(this, timePicker, hour, minute, true)
+            timePickerDialog.show()
+        }
+
+        val timePicker2 = TimePickerDialog.OnTimeSetListener { _: TimePicker, hourOfDay: Int, minute: Int ->
+            val selectedTime = Calendar.getInstance()
+            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            selectedTime.set(Calendar.MINUTE, minute)
+
+            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            editHeureArrivee.setText(timeFormat.format(selectedTime.time))
+        }
+
+        editHeureArrivee.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val minute = currentTime.get(Calendar.MINUTE)
+
+            val timePickerDialog2 = TimePickerDialog(this, timePicker2, hour, minute, true)
+            timePickerDialog2.show()
+        }
 
 
+        val btnAddCovoiturage: Button = findViewById(R.id.buttonAjouterCours)
+        btnAddCovoiturage.setOnClickListener {
+            val depart = editDepart.text.toString().trim()
+            val destination = editDestination.text.toString().trim()
+            val price = editPrice.text.toString().trim().toInt()
+            val date = editDate.text.toString().trim()
+            val place = editPlace.text.toString().trim().toInt()
+            val phone = editPhone.text.toString().trim()
+            val bagage = editBagage.text.toString().trim()
+            val marque = editMarque.text.toString().trim()
+            val heureDepart = editHeureDepart.text.toString().trim()
+            val heureArrive = editHeureArrivee.text.toString().trim()
 
+            if (depart.isNotEmpty() && destination.isNotEmpty()  && phone.isNotEmpty() && bagage.isNotEmpty() && marque.isNotEmpty()) {
+                val covoiturageData = JSONObject()
+                covoiturageData.put("driver",intent.getLongExtra("USER_ID",0))
+                covoiturageData.put("depart", depart)
+                covoiturageData.put("destination", destination)
+                covoiturageData.put("price", price)
+                covoiturageData.put("date", date.toString())
+                covoiturageData.put("place", place.toString())
+                covoiturageData.put("phone", phone.toString())
+                covoiturageData.put("bagage", bagage.toString())
+                covoiturageData.put("marque", marque)
+                covoiturageData.put("heureDepart", heureDepart.toString())
+                covoiturageData.put("heureArrive", heureArrive.toString())
+
+                val queue = Volley.newRequestQueue(this)
+                val url = "${BASE_URL}/driver/covoiturages"
+                Log.d("COVOITURAGE_DATA : ", covoiturageData.toString())
+
+                val request = JsonObjectRequest(
+                    Request.Method.POST, url, covoiturageData,
+                    { response ->
+                        Toast.makeText(this, "Covoiturage ajouté avec succès!", Toast.LENGTH_SHORT).show()
+                        // Réinitialiser les champs du formulaire si nécessaire
+                    },
+                    { error ->
+                        if (error.networkResponse != null) {
+                            val statusCode = error.networkResponse.statusCode
+                            val data = String(error.networkResponse.data, Charset.defaultCharset())
+                            Toast.makeText(this, "Erreur lors de l'ajout du covoiturage: Status code $statusCode, Data: $data", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Erreur lors de l'ajout du covoiturage: ${error.message}", Toast.LENGTH_SHORT).show()
+                        }})
+
+                queue.add(request)
+
+            } else {
+                Toast.makeText(this, "Veuillez remplir tous les champs!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setUpBottomNavigationView() {
+        val  userId = intent.getLongExtra("USER_ID", -1)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.selectedItemId = R.id.bottom_home
+        bottomNavigationView.selectedItemId = R.id.bottom_Add
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_home -> {
                     val intent = Intent(this, Interface_driver::class.java)
-
+                    intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
-
+                    val intent = Intent(this, Profil::class.java)
+                    intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_Add -> {
-                    val intent = Intent(this, driver_trajet::class.java)
-
+                    val intent = Intent(this, profil_image::class.java)
+                    intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_notification -> {
-                    val intent = Intent(this, profil_image::class.java)
-
+                    val intent = Intent(this, Profil::class.java)
+                    intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_profil -> {
-                    val intent = Intent(this, Profil::class.java)
-
-                    startActivity(intent)
+                    // Update userId if needed
+                    startActivity(Intent(applicationContext, Profil::class.java).apply {
+                        putExtra("USER_ID", userId)
+                    })
                     finish()
                     true
                 }
                 else -> false
             }
         }
-
-
-    // Days of the week
-        val daysOfWeek = listOf("Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim")
-
-        for (day in daysOfWeek) {
-            val cell = createCell(day, false)
-            tableLayout.addView(cell)
-        }
-
-        // Set click listener for "Aller" and "Retour" TextViews
-        val allerTextView: TextView = findViewById(R.id.allerTextView1)
-
-
-        allerTextView.setOnClickListener {
-            showTimePickerDialog(isAller = true)
-        }
-
-
-
-        setAllerRegulierCellClickListeners()
     }
-
-    private fun createCell(label: String, isAller: Boolean): TextView {
-        val textView = TextView(this)
-        textView.text = label
-        textView.isClickable = true
-
-        // Set a click listener for the cell
-        textView.setOnClickListener {
-            toggleCellState(textView, label)
-        }
-
-        val cellWidth = if (isAller) {
-            resources.getDimensionPixelSize(R.dimen.reg_width)
-        } else {
-            resources.getDimensionPixelSize(R.dimen.cell_width)
-        }
-
-        val layoutParams = LinearLayout.LayoutParams(
-            cellWidth,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        // Set gravity to center
-        textView.gravity = Gravity.CENTER
-
-        // Set layout parameters for the TextView
-        textView.layoutParams = layoutParams
-
-        // Set the initial state colors
-        if (isAller) {
-            textView.setBackgroundResource(R.drawable.cell_border_clicked)
-            textView.setTextColor(Color.WHITE)
-            textView.tag = true
-            selectedDays.add(label)
-        } else {
-            textView.setBackgroundResource(R.drawable.cell_border)
-            textView.setTextColor(Color.BLUE)
-            textView.tag = false
-        }
-
-        // Add padding to the TextView
-        textView.setPadding(
-            resources.getDimensionPixelSize(R.dimen.cell_padding),
-            resources.getDimensionPixelSize(R.dimen.cell_padding),
-            resources.getDimensionPixelSize(R.dimen.cell_padding),
-            resources.getDimensionPixelSize(R.dimen.cell_padding)
-        )
-
-        return textView
-    }
-
-    private fun toggleCellState(cell: TextView, label: String) {
-        val isClicked = cell.tag as? Boolean ?: false
-
-        if (!isClicked) {
-            // Append the selected label to the list only if it's a day of the week
-            if (!label.equals("Aller", ignoreCase = true) && !label.equals("Regulier", ignoreCase = true)) {
-                selectedDays.add(label)
-            }
-        } else {
-            // Remove the unselected label from the list only if it's a day of the week
-            if (!label.equals("Aller", ignoreCase = true) && !label.equals("Regulier", ignoreCase = true)) {
-                selectedDays.remove(label)
-            }
-        }
-
-        // Update the text view with the selected labels excluding "Aller" and "Regulier"
-        if (!selectedDays.contains("Aller") && !selectedDays.contains("Regulier")) {
-            updateSelectedDaysTextView(selectedDays)
-        } else {
-            // If "Aller" or "Regulier" is present, update the text view with only the days
-            val selectedDaysWithoutAllerRegulier = selectedDays.filter { it != "Aller" && it != "Regulier" }
-            updateSelectedDaysTextView(selectedDaysWithoutAllerRegulier)
-        }
-
-        // Toggle the click state
-        cell.tag = !isClicked
-
-        // Update background colors based on the click state
-        updateAllerRegulierCellColors()
-
-        // Update day colors
-        updateDayColors()
-    }
-
-    private fun updateSelectedDaysTextView(days: List<String>) {
-        val selectedText = days.joinToString(", ")
-        selectedDaysTextView.text = selectedText
-    }
-
-    private fun setAllerRegulierCellClickListeners() {
-        allerCell.setOnClickListener {
-            toggleCellState(allerCell, "Aller")
-            toggleCellState(regulierCell, "Regulier")
-        }
-
-        regulierCell.setOnClickListener {
-            toggleCellState(regulierCell, "Regulier")
-            toggleCellState(allerCell, "Aller")
-        }
-    }
-
-    private fun updateAllerRegulierCellColors() {
-        // Update background colors based on the click state
-        if (allerCell.tag as? Boolean == true) {
-            allerCell.setBackgroundResource(R.drawable.cell_border_clicked)
-            allerCell.setTextColor(Color.WHITE)
-
-            val layoutParams = regulierCell.layoutParams as LinearLayout.LayoutParams
-            layoutParams.width = resources.getDimensionPixelSize(R.dimen.reg_width)
-            regulierCell.layoutParams = layoutParams
-
-            regulierCell.setBackgroundResource(R.drawable.cell_border)
-            regulierCell.setTextColor(Color.BLUE)
-        } else {
-            allerCell.setBackgroundResource(R.drawable.cell_border)
-            allerCell.setTextColor(Color.BLUE)
-
-            val layoutParams = regulierCell.layoutParams as LinearLayout.LayoutParams
-            layoutParams.width = resources.getDimensionPixelSize(R.dimen.reg_width)
-            regulierCell.layoutParams = layoutParams
-
-            regulierCell.setBackgroundResource(R.drawable.cell_border_clicked)
-            regulierCell.setTextColor(Color.WHITE)
-        }
-    }
-
-    private fun updateDayColors() {
-        // Update the colors of the days based on the selected state
-        for (i in 0 until tableLayout.childCount) {
-            val dayCell = tableLayout.getChildAt(i) as? TextView
-            val dayLabel = dayCell?.text.toString()
-
-            if (selectedDays.contains(dayLabel)) {
-                dayCell?.setBackgroundResource(R.drawable.cell_border_clicked)
-                dayCell?.setTextColor(Color.WHITE)
-            } else {
-                dayCell?.setBackgroundResource(R.drawable.cell_border)
-                dayCell?.setTextColor(Color.BLUE)
-            }
-        }
-    }
-
-    private fun showTimePickerDialog(isAller: Boolean) {
-        val currentTime = Calendar.getInstance()
-        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-        val minute = currentTime.get(Calendar.MINUTE)
-
-        val timePickerDialog = TimePickerDialog(
-            this,
-            TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
-                updateTime(selectedHour, selectedMinute, isAller)
-            },
-            hour,
-            minute,
-            true
-        )
-
-        timePickerDialog.show()
-    }
-
-    private fun updateTime(hour: Int, minute: Int, isAller: Boolean) {
-        val formattedHour = if (hour < 10) "0$hour" else "$hour"
-        val formattedMinute = if (minute < 10) "0$minute" else "$minute"
-
-        val selectedTime = "$formattedHour:$formattedMinute"
-
-        // Use isAller to determine which TextView to update
-        if (isAller) {
-            selectedTimeAllerTextView.text = selectedTime
-        } else {
-            selectedTimeRetourTextView.text = selectedTime
-        }
-    }
-
-    // Fonction pour sauvegarder les données en utilisant Volley
-    private fun saveDataWithVolley() {
-        val url = "URL_DE_VOTRE_API" // Remplacez cela par l'URL réelle de votre API
-
-        // Créez le corps de la requête avec les données à sauvegarder
-        val requestBody = JSONObject().apply {
-            put("selectedDays", selectedDays)
-            put("allerTime", selectedTimeAllerTextView.text.toString())
-            put("retourTime", selectedTimeRetourTextView.text.toString())
-        }
-
-        // Créez une requête POST avec Volley
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.POST, url, requestBody,
-            Response.Listener { response ->
-                // Gérez la réponse de l'API en cas de succès
-                val successMessage = response.getString("message")
-                Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
-
-                // Vous pouvez également rediriger l'utilisateur vers une autre activité si nécessaire
-                // val intent = Intent(this, NextActivity::class.java)
-                // startActivity(intent)
-            },
-            Response.ErrorListener { error: VolleyError ->
-                // Gérez les erreurs de l'API ici
-                val errorMessage = "Erreur lors de la sauvegarde des données: ${error.message}"
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        )
-
-        // Ajoutez la requête à la file d'attente de Volley pour l'exécution
-        Volley.newRequestQueue(this).add(jsonObjectRequest)
-    }
-
-    fun onSuivantClick(view: View) {
-        // Afficher une alerte de confirmation
-        showConfirmationAlert()
-    }
-
-    private fun showConfirmationAlert() {
-        Toast.makeText(this, "Données sauvegardées avec succès!", Toast.LENGTH_SHORT).show()
-    }
-
-
 
 }
-
-
-
-
-
-
 
 
 
