@@ -1,20 +1,29 @@
 package com.example.tawsila
 
+import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.json.JSONObject
 import java.util.Calendar
 
-class driver_trajet: AppCompatActivity() {
+class driver_trajet : AppCompatActivity() {
     private val selectedDays = mutableListOf<String>()
     private lateinit var selectedDaysTextView: TextView
     private lateinit var allerLayout: LinearLayout
@@ -25,34 +34,78 @@ class driver_trajet: AppCompatActivity() {
     private lateinit var selectedTimeAllerTextView: TextView
     private lateinit var selectedTimeRetourTextView: TextView
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(MicroServiceApi.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-        .build()
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.driver_trajet)
 
-        allerLayout = findViewById(R.id.allerLayout)
-        tableLayout = findViewById(R.id.tableLayout)
-        selectedDaysTextView = findViewById(R.id.selectedDaysTextView)
+        allerLayout = findViewById(R.id.allerLayout1)
+        tableLayout = findViewById(R.id.tableLayout1)
+        selectedDaysTextView = findViewById(R.id.selectedDaysTextView1)
         selectedTimeAllerTextView = findViewById(R.id.selectedTimeAllerTextView)
-        selectedTimeRetourTextView = findViewById(R.id.selectedTimeRetourTextView)
+
         selectedTimeTextView = findViewById(R.id.selectedTimeAllerTextView) // Initialize selectedTimeTextView
 
-        // Call the function to set up userId and BottomNavigationView
-        setUpBottomNavigationView()
-
-// Add "Aller" and "Regulier" cells to the "Aller" layout
+        // Add "Aller" and "Regulier" cells to the "Aller" layout
         allerCell = createCell("Aller", true)
         regulierCell = createCell("Regulier", false)
         allerLayout.addView(allerCell)
         allerLayout.addView(regulierCell)
 
-// Simulate a click on the "Regulier" cell
+        // Simulate a click on the "Regulier" cell
         toggleCellState(regulierCell, "Regulier")
 
-// Days of the week
+
+
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.selectedItemId = R.id.bottom_home
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_home -> {
+                    val intent = Intent(this, Interface_driver::class.java)
+
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_trajet -> {
+                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
+
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_Add -> {
+                    val intent = Intent(this, driver_trajet::class.java)
+
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_notification -> {
+                    val intent = Intent(this, profil_image::class.java)
+
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_profil -> {
+                    val intent = Intent(this, Profil::class.java)
+
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+
+
+
+    // Days of the week
         val daysOfWeek = listOf("Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim")
 
         for (day in daysOfWeek) {
@@ -60,20 +113,19 @@ class driver_trajet: AppCompatActivity() {
             tableLayout.addView(cell)
         }
 
-// Set click listener for "Aller" and "Retour" TextViews
-        val allerTextView: TextView = findViewById(R.id.allerTextView)
-        val retourTextView: TextView = findViewById(R.id.retourTextView)
+        // Set click listener for "Aller" and "Retour" TextViews
+        val allerTextView: TextView = findViewById(R.id.allerTextView1)
+
 
         allerTextView.setOnClickListener {
             showTimePickerDialog(isAller = true)
         }
 
-        retourTextView.setOnClickListener {
-            showTimePickerDialog(isAller = false)
-        }
+
 
         setAllerRegulierCellClickListeners()
     }
+
     private fun createCell(label: String, isAller: Boolean): TextView {
         val textView = TextView(this)
         textView.text = label
@@ -200,7 +252,6 @@ class driver_trajet: AppCompatActivity() {
         }
     }
 
-
     private fun updateDayColors() {
         // Update the colors of the days based on the selected state
         for (i in 0 until tableLayout.childCount) {
@@ -216,6 +267,7 @@ class driver_trajet: AppCompatActivity() {
             }
         }
     }
+
     private fun showTimePickerDialog(isAller: Boolean) {
         val currentTime = Calendar.getInstance()
         val hour = currentTime.get(Calendar.HOUR_OF_DAY)
@@ -247,52 +299,59 @@ class driver_trajet: AppCompatActivity() {
             selectedTimeRetourTextView.text = selectedTime
         }
     }
-    private fun setUpBottomNavigationView() {
-        val  userId = intent.getLongExtra("USER_ID", -1)
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.selectedItemId = R.id.bottom_Add
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_home -> {
-                    val intent = Intent(this, Interface_driver::class.java)
-                    intent.putExtra("USER_ID", userId)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
-                R.id.bottom_trajet -> {
-                    val intent = Intent(this, Profil::class.java)
-                    intent.putExtra("USER_ID", userId)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
-                R.id.bottom_Add -> {
-                    val intent = Intent(this, profil_image::class.java)
-                    intent.putExtra("USER_ID", userId)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
-                R.id.bottom_notification -> {
-                    val intent = Intent(this, Profil::class.java)
-                    intent.putExtra("USER_ID", userId)
-                    startActivity(intent)
-                    finish()
-                    true
-                }
-                R.id.bottom_profil -> {
-                    // Update userId if needed
-                    startActivity(Intent(applicationContext, Profil::class.java).apply {
-                        putExtra("USER_ID", userId)
-                    })
-                    finish()
-                    true
-                }
-                else -> false
-            }
+    // Fonction pour sauvegarder les données en utilisant Volley
+    private fun saveDataWithVolley() {
+        val url = "URL_DE_VOTRE_API" // Remplacez cela par l'URL réelle de votre API
+
+        // Créez le corps de la requête avec les données à sauvegarder
+        val requestBody = JSONObject().apply {
+            put("selectedDays", selectedDays)
+            put("allerTime", selectedTimeAllerTextView.text.toString())
+            put("retourTime", selectedTimeRetourTextView.text.toString())
         }
+
+        // Créez une requête POST avec Volley
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, url, requestBody,
+            Response.Listener { response ->
+                // Gérez la réponse de l'API en cas de succès
+                val successMessage = response.getString("message")
+                Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
+
+                // Vous pouvez également rediriger l'utilisateur vers une autre activité si nécessaire
+                // val intent = Intent(this, NextActivity::class.java)
+                // startActivity(intent)
+            },
+            Response.ErrorListener { error: VolleyError ->
+                // Gérez les erreurs de l'API ici
+                val errorMessage = "Erreur lors de la sauvegarde des données: ${error.message}"
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        // Ajoutez la requête à la file d'attente de Volley pour l'exécution
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
     }
 
+    fun onSuivantClick(view: View) {
+        // Afficher une alerte de confirmation
+        showConfirmationAlert()
+    }
+
+    private fun showConfirmationAlert() {
+        Toast.makeText(this, "Données sauvegardées avec succès!", Toast.LENGTH_SHORT).show()
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
