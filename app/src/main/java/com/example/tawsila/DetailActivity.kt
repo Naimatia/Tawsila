@@ -90,6 +90,7 @@ class DetailActivity : AppCompatActivity() {
                 // Enable the button after the API call is complete
                 confirmerButton.isEnabled = true
             }
+
         }
 
         // Retrieve data from intent
@@ -125,6 +126,9 @@ class DetailActivity : AppCompatActivity() {
         map.setMultiTouchControls(true)
         // Display the route on the map
         displayRoute()
+        val userId: Long = intent.getLongExtra("USER_ID", -1)
+        Log.e("id ", "user id: $userId")
+
     }
 
     private suspend fun updateUI(covoiturage: Covoiturage) {

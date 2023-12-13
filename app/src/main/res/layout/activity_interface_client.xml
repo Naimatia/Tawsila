@@ -112,6 +112,7 @@
 
                                 <!-- Source Input -->
                                 <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/textInputLayoutSource"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:startIconDrawable="@drawable/baseline_my_location"
@@ -119,7 +120,7 @@
                                     app:hintTextColor="@color/white"
                                     app:startIconContentDescription="Source Icon">
 
-                                    <EditText
+                                    <AutoCompleteTextView
                                         android:id="@+id/editTextSource"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -131,6 +132,7 @@
 
                                 <!-- Destination Input -->
                                 <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/textInputLayoutDestination"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     app:startIconDrawable="@drawable/add_location"
@@ -138,7 +140,7 @@
                                     app:hintTextColor="@color/white"
                                     app:startIconTint="@color/white">
 
-                                    <EditText
+                                    <AutoCompleteTextView
                                         android:id="@+id/editTextDestination"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"

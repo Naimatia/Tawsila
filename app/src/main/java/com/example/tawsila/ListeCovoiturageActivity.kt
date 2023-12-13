@@ -25,7 +25,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
 
     private lateinit var covoiturageAdapter: CovoiturageAdapter
     val retrofit = Retrofit.Builder()
-        .baseUrl(MicroServiceApi.BASE_URL)
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .client(
             OkHttpClient.Builder()
@@ -95,7 +95,7 @@ class ListeCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemC
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("covoiturage", covoiturage)
         intent.putExtra("USER_ID", userId)
-        Log.e("id", "user id: $userId")
+        Log.e("id ", "user id: $userId")
         startActivity(intent)
     }
 

@@ -21,7 +21,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItemClickListener {
+class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageDriverAdapter.OnItemClickListener {
 
     private lateinit var CovoiturageDriverAdapter: CovoiturageDriverAdapter
     val retrofit = Retrofit.Builder()
@@ -48,18 +48,9 @@ class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItem
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         CovoiturageDriverAdapter = CovoiturageDriverAdapter(emptyList(), this)
-     //   CovoiturageDriverAdapter.setOnItemClickListener(this)
         recyclerView.adapter = CovoiturageDriverAdapter
+        CovoiturageDriverAdapter.setOnItemClickListener(this)
 
-        // Retrieve input values from Intent
-        val source = intent.getStringExtra("SOURCE") ?: "defaultSource"
-        val destination = intent.getStringExtra("DESTINATION") ?: "defaultDestination"
-        val date = intent.getStringExtra("DATE") ?: "defaultDate"
-
-
-     //   textSource.text = source
-       // textDestination.text = destination
-        //textDate.text = date
 
         // Call the function to fetch and display covoiturages
         fetchAndDisplayCovoiturages()
@@ -73,29 +64,35 @@ class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItem
             intent.putExtra("USER_ID", userId)
             startActivity(intent)
         }
-
-        // Call the function to fetch and display covoiturages
-        fetchAndDisplayCovoiturages()
+        val userId = intent.getLongExtra("USER_ID", -1)
+        Log.e("idNaim", "$userId")
     }
 
     override fun onItemClick(covoiturage: Covoiturage) {
-        // Handle item click, e.g., launch DetailActivity
-        val intent = Intent(this, Interface_driver::class.java)
-        val userId: Long = intent.getLongExtra("USER_ID", -1)
-        intent.putExtra("covoiturage", covoiturage.id)
-            intent.putExtra("USER_ID", userId)
-        Log.e("id", "user id: ${userId}")
+        Log.d("ItemClick", "Item clicked! covoiturageId: ${covoiturage.id}")
 
-        val covoiturageId = covoiturage.id
 
-        intent.putExtra("covoiturage", covoiturageId)
-
+        // Retrieve user ID from the intent
+        val userId = intent.getLongExtra("USER_ID", -1)
+        // Create the intent and put extra values
+        val intent = Intent(this@DriverCovoiturageActivity, ReservationListDriver::class.java)
+        intent.putExtra("COVOITURAGE_ID", covoiturage.id)
+        intent.putExtra("USER_ID", userId)
         startActivity(intent)
-
     }
+
+    override fun onAcceptRequest(covoiturage: Covoiturage) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeleteCovoiturage(covoiturage: Covoiturage) {
+        TODO("Not yet implemented")
+    }
+
 
     private fun fetchAndDisplayCovoiturages() {
         val userid= intent.getLongExtra("USER_ID", 0)
+        Log.e("idDriver", "user id: $userid")
         val baseUrl = "${BASE_URL}/driver/covoituragesDriver/$userid"
        // val url = "${baseUrl}?depart=$source&destination=$destination&date=$date"
         val call: Call<List<Covoiturage>> = microserviceApi.getFilteredCovoiturages(baseUrl)

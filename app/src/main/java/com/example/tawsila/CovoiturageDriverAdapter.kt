@@ -52,8 +52,11 @@ class CovoiturageDriverAdapter(
         fun onDeleteCovoiturage(covoiturage: Covoiturage)
     }
 
- //   private var onItemClickListener: OnItemClickListener? = null
+    private var onItemClickListener: OnItemClickListener? = null
 
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -65,16 +68,15 @@ class CovoiturageDriverAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val covoiturage = filteredCovoituragesList[position]
 
-
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ReservationListDriver::class.java)
-            intent.putExtra("COVOITURAGE_ID", covoiturage.id)
-            holder.itemView.context.startActivity(intent)
+            onItemClickListener?.onItemClick(covoiturage)
         }
-
 
         holder.bind(covoiturage)
     }
+
+
+
 
     override fun getItemCount(): Int {
         return filteredCovoituragesList.size
@@ -175,4 +177,9 @@ class CovoiturageDriverAdapter(
             }
         })
     }
-}
+
+
+    }
+
+
+

@@ -69,65 +69,7 @@
 
                     </androidx.appcompat.widget.Toolbar>
 
-                    <!-- Add three LinearLayout elements for each icon and text -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <!-- Icon 1 and Text 1 -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center_vertical">
-
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="10dp"
-                                android:src="@drawable/baseline_my_location" />
-
-
-                        </LinearLayout>
-
-                        <!-- Icon 2 and Text 2 -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="10dp"
-                                android:src="@drawable/baseline_share_location_24" />
-
-
-                            </LinearLayout>
-
-                        <!-- Icon 3 and Text 3 -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center_vertical">
-
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingRight="10dp"
-                                android:src="@drawable/baseline_access_time_24" />
-
-
-                           </LinearLayout>
                         <!-- Add a LinearLayout for three icons aligned horizontally -->
-                    </LinearLayout>
 
                 </com.google.android.material.appbar.AppBarLayout>
 

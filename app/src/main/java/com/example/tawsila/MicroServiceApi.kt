@@ -18,9 +18,8 @@ import retrofit2.http.Url
 interface MicroServiceApi {
 
     companion object {
-        const val BASE_URL = "http://172.20.10.3:8080"
-        const val BASE_URLF = "http://172.20.10.3:3002"
-
+        const val BASE_URL = "http://169.254.142.86:8080"
+        const val BASE_URLF = "http://169.254.142.86:3002"
     }
 
 
@@ -84,8 +83,7 @@ interface MicroServiceApi {
     fun deleteCovoiturage(@Url url: String): Call<ResponseBody>
 
     @GET
-    fun getParticipantInfo( @Url url: String,
-    ): Call<UserDTO>
+    fun getParticipantInfo( @Url url: String, ): Call<UserDTO>
 
     @PUT
     fun UpdateReservations( @Url url: String,

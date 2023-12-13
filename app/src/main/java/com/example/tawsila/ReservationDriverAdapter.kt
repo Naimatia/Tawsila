@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URL
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URLF
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,7 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ReservationDriverAdapter(
     private var originalReservationsList: List<Reservation>,
-    private val context: Context
+    private val context: Context,
+    private val userId: Long  // Add this parameter
+
+
 ) : RecyclerView.Adapter<ReservationDriverAdapter.ViewHolder>() {
 
     private var filteredReservationsList: List<Reservation> = originalReservationsList
@@ -119,7 +124,7 @@ class ReservationDriverAdapter(
             destinationTextView: TextView,
             departureTextView: TextView
         ) {
-            val baseUrl = "http://192.168.56.1:3002/participationDriver/${reservation.participationID}"
+            val baseUrl = "${BASE_URLF}/participationDriver/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$url}")
 
@@ -164,7 +169,7 @@ class ReservationDriverAdapter(
 
 
         private fun handleDeletedButtonClick(reservation: Reservation) {
-            val baseUrl = "http://192.168.56.1:3002/participation/${reservation.participationID}"
+            val baseUrl = "${BASE_URLF}/participation/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$baseUrl}")
 
@@ -210,7 +215,7 @@ class ReservationDriverAdapter(
 
         private fun fetchUserDetails(userID: Int) {
             // Use the Retrofit or any other networking library to make the call
-            val baseUrl = "http://192.168.56.1:8080/auth/3"
+            val baseUrl = "${BASE_URL}/auth/$userID"
 
             Log.e("URL", "{$baseUrl}")
             val retrofit = Retrofit.Builder()
@@ -265,7 +270,7 @@ class ReservationDriverAdapter(
         Log.d("SendEmail", "Extracted Email: $extractedEmail, Extracted Name: $extractedName")
 
         Log.e("carpoolingId", "{$carpoolingId}")
-        val baseUrl = "http://192.168.56.1:8080/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
+        val baseUrl = "http://169.254.142.86:8083/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
 
         // Use Retrofit to make the API call
         Log.e("URL", "{$baseUrl}")

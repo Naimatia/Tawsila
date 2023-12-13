@@ -102,9 +102,6 @@ class driver_trajet : AppCompatActivity() {
         }
 
 
-
-
-
     // Days of the week
         val daysOfWeek = listOf("Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim")
 

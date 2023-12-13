@@ -1,16 +1,27 @@
 package com.example.tawsila
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseApp
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.Calendar
 
 class Interface_client : AppCompatActivity() {
@@ -20,8 +31,13 @@ class Interface_client : AppCompatActivity() {
     private lateinit var buttonRecherche: Button
 
 
+    private lateinit var sourceAutoCompleteTextView: AutoCompleteTextView
+    private lateinit var destinationAutoCompleteTextView: AutoCompleteTextView
+
+    private val cities = ArrayList<String>()
 
 
+    @SuppressLint("WrongViewCast", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
@@ -44,16 +60,32 @@ class Interface_client : AppCompatActivity() {
 
         editTextDate.setHintTextColor(Color.WHITE)
 
-        // Add a click listener to the "Recherche" button
+
+        // Assuming you have the TextInputLayout and AutoCompleteTextView in your XML layout
+        sourceAutoCompleteTextView = findViewById(R.id.editTextSource)
+        destinationAutoCompleteTextView = findViewById(R.id.editTextDestination)
+
+        // Fetch the list of Tunisian cities asynchronously
+        FetchCitiesTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+
+        // Set an item click listener if needed
+        sourceAutoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+            val selectedCity = sourceAutoCompleteTextView.adapter.getItem(position).toString()
+            // Do something with the selected city
+            Toast.makeText(this, "Selected city: $selectedCity", Toast.LENGTH_SHORT).show()
+        }
+
+// Add a click listener to the "Recherche" button
         buttonRecherche.setOnClickListener {
             // Get the input values
-            val source = editTextSource.text.toString()
-            val destination = editTextDestination.text.toString()
+            val source = sourceAutoCompleteTextView.text.toString()
+            val destination = destinationAutoCompleteTextView.text.toString()
             val date = editTextDate.text.toString()
 
             // Pass the values to the next activity
             navigateToNextActivity(source, destination, date)
         }
+
         editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
@@ -82,8 +114,8 @@ class Interface_client : AppCompatActivity() {
                     finish()
                     true
                 }
-                R.id.carpooling -> {
-                    val intent = Intent(this, Profil::class.java)
+                R.id.bottom_maps -> {
+                    val intent = Intent(this, Maps::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
@@ -163,4 +195,62 @@ class Interface_client : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+
+
+    private inner class FetchCitiesTask : AsyncTask<Void, Void, List<String>>() {
+
+        override fun doInBackground(vararg params: Void?): List<String>? {
+            try {
+                val url = URL("https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Barea%5B%22ISO3166-1%22%3D%22TN%22%5D%5Badmin_level%3D2%5D-%3E.searchArea%3B(node%5B%22place%22%3D%22city%22%5D%28area.searchArea%29%3Bway%5B%22place%22%3D%22city%22%5D%28area.searchArea%29%3Brel%5B%22place%22%3D%22city%22%5D%28area.searchArea%29%3B%29%3Bout%20center%3B")
+                val urlConnection = url.openConnection() as HttpURLConnection
+                val inputStream = urlConnection.inputStream
+
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+                val json = JSONObject(response.toString())
+                val elements = json.getJSONArray("elements")
+
+                val cities = mutableListOf<String>()  // Create a new list to hold cities
+
+                for (i in 0 until elements.length()) {
+                    val cityName = elements.getJSONObject(i).getJSONObject("tags").optString("name:fr")
+                    if (!cityName.isNullOrBlank()) {
+                        cities.add(cityName)
+                    }
+                }
+
+                Log.d("FetchCitiesTask", "Cities: $cities")
+
+                return cities
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            }
+        }
+
+        override fun onPostExecute(result: List<String>?) {
+            if (result != null) {
+                // Update the AutoCompleteTextView adapters with the new list of cities
+                sourceAutoCompleteTextView.setAdapter(ArrayAdapter(this@Interface_client, android.R.layout.simple_dropdown_item_1line, result))
+                destinationAutoCompleteTextView.setAdapter(ArrayAdapter(this@Interface_client, android.R.layout.simple_dropdown_item_1line, result))
+                sourceAutoCompleteTextView.threshold = 1
+                destinationAutoCompleteTextView.threshold = 1
+
+
+            } else {
+                // Handle the case where the data fetching failed
+                Toast.makeText(this@Interface_client, "Failed to fetch cities", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 }

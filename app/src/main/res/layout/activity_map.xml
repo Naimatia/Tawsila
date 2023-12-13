@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AddMaps">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutArrivee"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/add">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextArrivee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

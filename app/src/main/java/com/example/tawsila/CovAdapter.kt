@@ -1,6 +1,7 @@
 package com.example.tawsila
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,9 +52,20 @@ class CovAdapter(private val covoiturageList: List<Covoiturage>) : RecyclerView.
 
     private fun calculateTimeDifference(covoiturage: Covoiturage): String {
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        // Check for null values in heureDepart and heureArrive
+        if (covoiturage.heureDepart == null || covoiturage.heureArrive == null) {
+            return ""
+        }
+
         try {
             val departTime = dateFormat.parse(covoiturage.heureDepart)
             val arriveTime = dateFormat.parse(covoiturage.heureArrive)
+
+            // Check for null values after parsing
+            if (departTime == null || arriveTime == null) {
+                return ""
+            }
 
             val diff = Math.abs(arriveTime.time - departTime.time)
             val hours = diff / (60 * 60 * 1000)
@@ -65,4 +77,5 @@ class CovAdapter(private val covoiturageList: List<Covoiturage>) : RecyclerView.
         }
         return ""
     }
+
 }

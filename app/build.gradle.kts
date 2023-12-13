@@ -65,6 +65,7 @@ dependencies {
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
     implementation ("com.google.firebase:firebase-messaging:23.0.0")
     implementation ("com.google.firebase:firebase-messaging:23.4.0")
+    implementation ("com.google.firebase:firebase-analytics:20.0.0")
 
 
 }

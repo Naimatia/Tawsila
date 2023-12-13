@@ -49,7 +49,6 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
 
     private fun fetchAndDisplayReservations() {
 
-      //  val idclient = 2
         val  userId = intent.getLongExtra("USER_ID", -1)
         Log.e("id", "user id: $userId")
         val baseUrl = "${BASE_URLF}/participations/$userId"

@@ -1,6 +1,7 @@
 package com.example.tawsila
 
 import ApiParticipation
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tawsila.MicroServiceApi.Companion.BASE_URLF
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -29,37 +31,20 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
         recyclerView = findViewById(R.id.recyclerViewClients)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        ReservationDriverAdapter = ReservationDriverAdapter(emptyList(), this)
+        val userId = intent.getLongExtra("USER_ID", -1)
+        ReservationDriverAdapter = ReservationDriverAdapter(emptyList(), this, userId)
         ReservationDriverAdapter.setOnItemClickListener(this)
         recyclerView.adapter = ReservationDriverAdapter
 
+
         // Call the function to fetch and display reservations
-        fetchAndDisplayReservations()
+        Log.d("DriverReser", "onCreate called")
 
         // Call the function to set up userId and BottomNavigationView
         setUpBottomNavigationView()
 
-        // Retrieve covoiturage ID from the intent
-        val covoiturageId = intent.getLongExtra("covoiturage", -1)
 
-        if (covoiturageId != -1L) {
-            // covoiturageId is valid, you can use it in your activity
-            Log.d("ReservationListDriver", "Received covoiturage ID: $covoiturageId")
-        } else {
-            // Handle the case where covoiturageId is not provided or invalid
-            Log.e("ReservationListDriver", "Invalid covoiturage ID")
-        }
-
-        // Retrieve user ID from the intent
-        val userId = intent.getLongExtra("USER_ID", -1)
-
-        if (userId != -1L) {
-            // userId is valid, you can use it in your activity
-            Log.d("ReservationListDriver", "Received user ID: $userId")
-        } else {
-            // Handle the case where userId is not provided or invalid
-            Log.e("ReservationListDriver", "Invalid user ID")
-        }
+        fetchAndDisplayReservations()
 
     }
 
@@ -69,14 +54,11 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
     }
 
     private fun fetchAndDisplayReservations() {
+        // Retrieve covoiturage ID from the intent
+        val covoiturageId = intent.getLongExtra("COVOITURAGE_ID", -1)
+        Log.e("idCov" ,"$covoiturageId")
 
-        //  val idclient = 2
-        //val/  userId = intent.getLongExtra("USER_ID", -1)
-        //Log.e("id", "user id: $userId")
-
-
-
-        val baseUrl = "http://192.168.56.1:3002/participationDriver/68"
+        val baseUrl = "${BASE_URLF}/participationDriver/${covoiturageId}"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)
@@ -153,4 +135,5 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
             }
         }
     }
+
 }
