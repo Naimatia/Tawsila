@@ -9,7 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
 
 class Interface_admin : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -20,12 +19,9 @@ class Interface_admin : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
         setContentView(R.layout.activity_interface_admin)
         // Call the function to set up userId and BottomNavigationView
         setUpBottomNavigationView()
-        FirebaseApp.initializeApp(this)
-
 
     }
 
@@ -65,7 +61,7 @@ class Interface_admin : AppCompatActivity() {
                     true
                 }
                 R.id.profile_image -> {
-                    val intent = Intent(this, Admin_profile::class.java)
+                    val intent = Intent(this, Profil_Admin::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

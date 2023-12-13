@@ -229,7 +229,7 @@
             app:itemIconTint="@color/bottomnavigation_color_state"
             app:itemTextColor="@color/bottomnavigation_color_state"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/menu_client" />
+            app:menu="@menu/menu_admin" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

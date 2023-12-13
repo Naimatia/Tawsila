@@ -86,6 +86,9 @@
         <activity
             android:name=".AddMaps"
             android:exported="false" />
+        <activity
+            android:name=".Profil_Admin"
+            android:exported="false" />
 
         <activity
             android:name=".DriverCovoiturageActivity"
@@ -110,6 +113,10 @@
         </activity>
 
 
+        <activity android:name=".Profil_Driver">
+
+            <!-- Add any necessary intent filters or other activity configurations here -->
+        </activity>
 
 
         <activity

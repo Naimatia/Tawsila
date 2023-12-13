@@ -123,7 +123,7 @@ class Interface_driver : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_profil -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, Profil_Driver::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

@@ -1,5 +1,6 @@
 package com.example.tawsila
 
+
 import CovoiturageAdapter
 import android.content.Intent
 import android.os.Bundle
@@ -72,7 +73,7 @@ class ListCovAdmin : AppCompatActivity() {
         val  userId = intent.getLongExtra("USER_ID", -1)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.selectedItemId = R.id.Acceuil
+        bottomNavigationView.selectedItemId = R.id.carpooling
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.Acceuil -> {
@@ -104,7 +105,7 @@ class ListCovAdmin : AppCompatActivity() {
                     true
                 }
                 R.id.profile_image -> {
-                    val intent = Intent(this, Admin_profile::class.java)
+                    val intent = Intent(this, Profil_Admin::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
@@ -116,3 +117,5 @@ class ListCovAdmin : AppCompatActivity() {
     }
 
 }
+
+

@@ -11,6 +11,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 class CovAdapter(private val covoiturageList: List<Covoiturage>) : RecyclerView.Adapter<CovAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -60,6 +60,7 @@ class ReservationDriverAdapter(
         holder.bind(reservation)
     }
 
+
     override fun getItemCount(): Int = filteredReservationsList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -145,7 +146,8 @@ class ReservationDriverAdapter(
             call.enqueue(object : Callback<Reservation> {
                 override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
                     if (response.isSuccessful) {
-                        updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                        //updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                        notifyActivityDataChanged()
 
                         val updatedReservation: Reservation? = response.body()
                         if (updatedReservation != null) {
@@ -192,7 +194,8 @@ class ReservationDriverAdapter(
                     if (response.isSuccessful) {
 
                         val updatedReservation: Reservation? = response.body()
-                        updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                       // updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                        notifyActivityDataChanged()
 
                         if (updatedReservation != null) {
                             Log.d("ReservationDriverAdapter", "Reservation updated successfully")
@@ -321,5 +324,10 @@ class ReservationDriverAdapter(
     fun updateOriginalData(newData: List<Reservation>) {
         originalReservationsList = newData
         setFilteredData(newData)
+    }
+    private fun notifyActivityDataChanged() {
+        // Notify the activity to refresh the data
+        val intent = Intent(context, Interface_driver::class.java)
+        context.startActivity(intent)
     }
 }

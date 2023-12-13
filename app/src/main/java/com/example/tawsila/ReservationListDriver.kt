@@ -104,7 +104,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_home -> {
-                    val intent = Intent(this, Interface_client::class.java)
+                    val intent = Intent(this, Interface_driver::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
@@ -117,19 +117,27 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
                     finish()
                     true
                 }
-                R.id.carpooling -> {
-                    val intent = Intent(this, Profil::class.java)
+                R.id.bottom_Add -> {
+                    val intent = Intent(this, driver_trajet::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.bottom_notification -> {
+                    val intent = Intent(this, profil_image::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_profil -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, Profil_Driver::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
+
                 }
                 else -> false
             }
