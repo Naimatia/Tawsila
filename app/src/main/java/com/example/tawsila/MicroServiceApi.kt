@@ -88,7 +88,8 @@ interface MicroServiceApi {
     fun UpdateReservations( @Url url: String,
     ):  Call<Reservation>
 
-
+    @POST
+    fun sendEmail(@Url url: String): Call<Reservation>
     @DELETE
 
     fun DeleteReservations( @Url url: String,
