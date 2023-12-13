@@ -76,7 +76,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
 
 
 
-        val baseUrl = "http://192.168.56.1:3002/participationDriver/60"
+        val baseUrl = "http://192.168.56.1:3002/participationDriver/68"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)
@@ -129,7 +129,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, ListeReservationActivity::class.java)
+                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

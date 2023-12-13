@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -20,7 +19,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.log
 
 class ReservationDriverAdapter(
     private var originalReservationsList: List<Reservation>,
@@ -101,7 +99,9 @@ class ReservationDriverAdapter(
             }
             acceptButton.setOnClickListener {
                 // Perform the action when the "Accept" button is clicked
-                handleAcceptButtonClick(reservation)
+                handleAcceptButtonClick(reservation ,destinationTextView , departureTextView)
+                sendEmail(reservation.carpoolingID, departureTextView, destinationTextView)
+
                 Log.e("handleAcceptButtonClick", "handleAcceptButtonClick oku")
 
             }
@@ -114,7 +114,11 @@ class ReservationDriverAdapter(
             }
         }
 
-        private fun handleAcceptButtonClick(reservation: Reservation) {
+        private fun handleAcceptButtonClick(
+            reservation: Reservation,
+            destinationTextView: TextView,
+            departureTextView: TextView
+        ) {
             val baseUrl = "http://192.168.56.1:3002/participationDriver/${reservation.participationID}"
             val url = "${baseUrl}?etat=2"
             Log.e("URL", "{$url}")
@@ -136,6 +140,8 @@ class ReservationDriverAdapter(
             call.enqueue(object : Callback<Reservation> {
                 override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
                     if (response.isSuccessful) {
+                        updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+
                         val updatedReservation: Reservation? = response.body()
                         if (updatedReservation != null) {
                             Log.d("ReservationDriverAdapter", "Reservation updated successfully")
@@ -179,7 +185,10 @@ class ReservationDriverAdapter(
             call.enqueue(object : Callback<Reservation> {
                 override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
                     if (response.isSuccessful) {
+
                         val updatedReservation: Reservation? = response.body()
+                        updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+
                         if (updatedReservation != null) {
                             Log.d("ReservationDriverAdapter", "Reservation updated successfully")
                             // Handle the updatedReservation as needed
@@ -201,7 +210,7 @@ class ReservationDriverAdapter(
 
         private fun fetchUserDetails(userID: Int) {
             // Use the Retrofit or any other networking library to make the call
-            val baseUrl = "http://169.254.142.86:8080/auth/2" // Replace with your actual user details API endpoint
+            val baseUrl = "http://192.168.56.1:8080/auth/3"
 
             Log.e("URL", "{$baseUrl}")
             val retrofit = Retrofit.Builder()
@@ -222,8 +231,8 @@ class ReservationDriverAdapter(
                     if (response.isSuccessful) {
                         val user: UserDTO? = response.body()
                         if (user != null) {
-                            departureTextView.text = "Name: ${user.name}"
-                            destinationTextView.text = "Email: ${user.email}"
+                            departureTextView.text = user.name
+                            destinationTextView.text = user.email
                            // dateTextView.text = " ${user.roleName}"
 
                             // Log the coordinates
@@ -245,6 +254,58 @@ class ReservationDriverAdapter(
 
 
         }
+    }
+
+    private fun sendEmail(carpoolingId: Int, clientEmail: TextView, clientname: TextView) {
+        // Make an API call to send an email
+        val extractedEmail = clientEmail.text.toString()
+        val extractedName = clientname.text.toString()
+
+        // Log the extracted values for debugging
+        Log.d("SendEmail", "Extracted Email: $extractedEmail, Extracted Name: $extractedName")
+
+        Log.e("carpoolingId", "{$carpoolingId}")
+        val baseUrl = "http://192.168.56.1:8080/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
+
+        // Use Retrofit to make the API call
+        Log.e("URL", "{$baseUrl}")
+        val retrofit = Retrofit.Builder()
+            .baseUrl(MicroServiceApi.BASE_URL)  // Corrected to use UserServiceApi
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .build()
+            )
+            .build()
+
+        val userServiceApi = retrofit.create(MicroServiceApi::class.java)
+
+        val call: Call<Reservation> = userServiceApi.sendEmail(baseUrl)
+
+        call.enqueue(object : Callback<Reservation> {
+            override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
+                if (response.isSuccessful) {
+
+                    val SendingEmail: Reservation? = response.body()
+                    //updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+
+                    if (SendingEmail != null) {
+                        Log.d("Email ", "SendingEmail successfully")
+                        // Handle the SendingEmail as needed
+                    } else {
+                        Log.e("SendingEmail", "Response body is null")
+                    }
+                } else {
+                    Log.e("SendingEmail", "Failed to SendingEmail: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Reservation>, t: Throwable) {
+                Log.e("ReservationDriverAdapter", "Error updating reservation: ${t.message}")
+                // Handle the failure as you did before
+            }
+        })
     }
 
     fun setFilteredData(newData: List<Reservation>) {
