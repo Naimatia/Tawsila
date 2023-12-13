@@ -47,13 +47,11 @@ class ReservationDriverAdapter(
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(reservation)
-            val intent = Intent(holder.itemView.context, ListeReservationActivity::class.java)
-            holder.itemView.context.startActivity(intent)
-
         }
 
         holder.bind(reservation)
     }
+
 
     override fun getItemCount(): Int = filteredReservationsList.size
 
@@ -140,7 +138,8 @@ class ReservationDriverAdapter(
             call.enqueue(object : Callback<Reservation> {
                 override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
                     if (response.isSuccessful) {
-                        updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                        //updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                        notifyActivityDataChanged()
 
                         val updatedReservation: Reservation? = response.body()
                         if (updatedReservation != null) {
@@ -187,7 +186,8 @@ class ReservationDriverAdapter(
                     if (response.isSuccessful) {
 
                         val updatedReservation: Reservation? = response.body()
-                        updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                       // updateOriginalData(filteredReservationsList.filterNot { it.carpoolingID == reservation.carpoolingID })
+                        notifyActivityDataChanged()
 
                         if (updatedReservation != null) {
                             Log.d("ReservationDriverAdapter", "Reservation updated successfully")
@@ -265,7 +265,7 @@ class ReservationDriverAdapter(
         Log.d("SendEmail", "Extracted Email: $extractedEmail, Extracted Name: $extractedName")
 
         Log.e("carpoolingId", "{$carpoolingId}")
-        val baseUrl = "http://192.168.56.1:8080/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
+        val baseUrl = "http://192.168.56.1:8083/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
 
         // Use Retrofit to make the API call
         Log.e("URL", "{$baseUrl}")
@@ -316,5 +316,10 @@ class ReservationDriverAdapter(
     fun updateOriginalData(newData: List<Reservation>) {
         originalReservationsList = newData
         setFilteredData(newData)
+    }
+    private fun notifyActivityDataChanged() {
+        // Notify the activity to refresh the data
+        val intent = Intent(context, Interface_driver::class.java)
+        context.startActivity(intent)
     }
 }

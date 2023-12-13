@@ -61,7 +61,7 @@ class Interface_admin : AppCompatActivity() {
                     true
                 }
                 R.id.profile_image -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, Profil_Admin::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
