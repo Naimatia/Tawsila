@@ -43,7 +43,6 @@ class Interface_driver : AppCompatActivity() {
         setUpBottomNavigationView()
         setUpFirebaseMessaging()
 
-        // Find DrawerLayout by ID
         drawerLayout = findViewById(R.id.drawer_layout)
 
         setContentView(R.layout.activity_interface_driver)
