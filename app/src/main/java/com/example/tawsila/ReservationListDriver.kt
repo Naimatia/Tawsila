@@ -8,7 +8,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tawsila.MicroServiceApi.Companion.BASE_URLF
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -77,7 +76,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
 
 
 
-        val baseUrl = "${BASE_URLF}/participationDriver/60"
+        val baseUrl = "http://192.168.56.1:3002/participationDriver/68"
         Log.e("URL", "{$baseUrl}")
         val retrofit = Retrofit.Builder()
             .baseUrl(MicroServiceApi.BASE_URL)
@@ -130,7 +129,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, ListeReservationActivity::class.java)
+                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

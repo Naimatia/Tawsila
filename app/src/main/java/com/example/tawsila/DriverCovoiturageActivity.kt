@@ -80,7 +80,7 @@ class DriverCovoiturageActivity : AppCompatActivity(), CovoiturageAdapter.OnItem
 
     override fun onItemClick(covoiturage: Covoiturage) {
         // Handle item click, e.g., launch DetailActivity
-        val intent = Intent(this, ReservationListDriver::class.java)
+        val intent = Intent(this, Interface_driver::class.java)
         val userId: Long = intent.getLongExtra("USER_ID", -1)
         intent.putExtra("covoiturage", covoiturage.id)
             intent.putExtra("USER_ID", userId)
