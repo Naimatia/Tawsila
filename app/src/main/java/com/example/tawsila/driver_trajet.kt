@@ -201,7 +201,7 @@ class driver_trajet: AppCompatActivity() {
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, ListeReservationActivity::class.java)
+                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

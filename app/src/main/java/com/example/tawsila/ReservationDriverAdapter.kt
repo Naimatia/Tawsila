@@ -327,7 +327,9 @@ class ReservationDriverAdapter(
     }
     private fun notifyActivityDataChanged() {
         // Notify the activity to refresh the data
+
         val intent = Intent(context, Interface_driver::class.java)
+        intent.putExtra("USER_ID", userId)
         context.startActivity(intent)
     }
 }
