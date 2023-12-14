@@ -6,9 +6,12 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
@@ -27,6 +30,10 @@ import com.google.gson.GsonBuilder
 import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -43,6 +50,9 @@ class driver_trajet: AppCompatActivity() {
     private lateinit var editMarque: EditText
     private lateinit var editHeureDepart: EditText
     private lateinit var editHeureArrivee: EditText
+    private lateinit var sourceAutoCompleteTextView: AutoCompleteTextView
+    private lateinit var destinationAutoCompleteTextView: AutoCompleteTextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,69 +68,36 @@ class driver_trajet: AppCompatActivity() {
         editMarque = findViewById(R.id.editMarque)
         editHeureDepart = findViewById(R.id.editheureDepart)
         editHeureArrivee = findViewById(R.id.editheureArrivee)
+        // Call the function to set up userId and BottomNavigationView
+        setUpBottomNavigationView()
+        // Assuming you have the TextInputLayout and AutoCompleteTextView in your XML layout
+        sourceAutoCompleteTextView = findViewById(R.id.editDepart)
+        destinationAutoCompleteTextView = findViewById(R.id.editDestination)
 
-        val datePicker = DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-            val selectedDate = Calendar.getInstance()
-            selectedDate.set(Calendar.YEAR, year)
-            selectedDate.set(Calendar.MONTH, monthOfYear)
-            selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        // Fetch the list of Tunisian cities asynchronously
+        FetchCitiesTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
-            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            editDate.setText(dateFormat.format(selectedDate.time))
-        }
+
+
+
 
         editDate.setOnClickListener {
-            val currentDate = Calendar.getInstance()
-            val year = currentDate.get(Calendar.YEAR)
-            val month = currentDate.get(Calendar.MONTH)
-            val day = currentDate.get(Calendar.DAY_OF_MONTH)
-
-            val datePickerDialog = DatePickerDialog(this, datePicker, day, month, year)
-            datePickerDialog.show()
-        }
-
-        // Configuration du TimePicker pour l'heure de départ
-        val timePicker = TimePickerDialog.OnTimeSetListener { _: TimePicker, hourOfDay: Int, minute: Int ->
-            val selectedTime = Calendar.getInstance()
-            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            selectedTime.set(Calendar.MINUTE, minute)
-
-            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-            editHeureDepart.setText(timeFormat.format(selectedTime.time))
+            showDatePicker()
         }
 
         editHeureDepart.setOnClickListener {
-            val currentTime = Calendar.getInstance()
-            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val minute = currentTime.get(Calendar.MINUTE)
-
-            val timePickerDialog = TimePickerDialog(this, timePicker, hour, minute, true)
-            timePickerDialog.show()
-        }
-
-        val timePicker2 = TimePickerDialog.OnTimeSetListener { _: TimePicker, hourOfDay: Int, minute: Int ->
-            val selectedTime = Calendar.getInstance()
-            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            selectedTime.set(Calendar.MINUTE, minute)
-
-            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-            editHeureArrivee.setText(timeFormat.format(selectedTime.time))
+            showTimePicker(editHeureDepart)
         }
 
         editHeureArrivee.setOnClickListener {
-            val currentTime = Calendar.getInstance()
-            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val minute = currentTime.get(Calendar.MINUTE)
-
-            val timePickerDialog2 = TimePickerDialog(this, timePicker2, hour, minute, true)
-            timePickerDialog2.show()
+            showTimePicker(editHeureArrivee)
         }
 
 
         val btnAddCovoiturage: Button = findViewById(R.id.buttonAjouterCours)
         btnAddCovoiturage.setOnClickListener {
-            val depart = editDepart.text.toString().trim()
-            val destination = editDestination.text.toString().trim()
+            val depart = sourceAutoCompleteTextView.text.toString().trim()
+            val destination = destinationAutoCompleteTextView.text.toString().trim()
             val price = editPrice.text.toString().trim().toInt()
             val date = editDate.text.toString().trim()
             val place = editPlace.text.toString().trim().toInt()
@@ -151,7 +128,11 @@ class driver_trajet: AppCompatActivity() {
                 val request = JsonObjectRequest(
                     Request.Method.POST, url, covoiturageData,
                     { response ->
+                        val  userId = intent.getLongExtra("USER_ID", -1)
                         Toast.makeText(this, "Covoiturage ajouté avec succès!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, Interface_driver::class.java)
+                        intent.putExtra("USER_ID", userId)
+                        startActivity(intent)
                         // Réinitialiser les champs du formulaire si nécessaire
                     },
                     { error ->
@@ -170,6 +151,40 @@ class driver_trajet: AppCompatActivity() {
             }
         }
     }
+    private fun showDatePicker() {
+        val currentDate = Calendar.getInstance()
+        val year = currentDate.get(Calendar.YEAR)
+        val month = currentDate.get(Calendar.MONTH)
+        val day = currentDate.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, year, month, dayOfMonth ->
+            val selectedDate = Calendar.getInstance()
+            selectedDate.set(Calendar.YEAR, year)
+            selectedDate.set(Calendar.MONTH, month)
+            selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            editDate.setText(dateFormat.format(selectedDate.time))
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
+    private fun showTimePicker(editText: EditText) {
+        val currentTime = Calendar.getInstance()
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = currentTime.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(this, { _, hourOfDay, minute ->
+            val selectedTime = Calendar.getInstance()
+            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            selectedTime.set(Calendar.MINUTE, minute)
+
+            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            editText.setText(timeFormat.format(selectedTime.time))
+        }, hour, minute, true)
+
+        timePickerDialog.show()
+    }
 
     private fun setUpBottomNavigationView() {
         val  userId = intent.getLongExtra("USER_ID", -1)
@@ -186,14 +201,14 @@ class driver_trajet: AppCompatActivity() {
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, ListeReservationActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_Add -> {
-                    val intent = Intent(this, profil_image::class.java)
+                    val intent = Intent(this, driver_trajet::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
@@ -215,6 +230,62 @@ class driver_trajet: AppCompatActivity() {
                     true
                 }
                 else -> false
+            }
+        }
+    }
+
+
+    private inner class FetchCitiesTask : AsyncTask<Void, Void, List<String>>() {
+
+        override fun doInBackground(vararg params: Void?): List<String>? {
+            try {
+                val url = URL("https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Barea%5B%22ISO3166-1%22%3D%22TN%22%5D%5Badmin_level%3D2%5D-%3E.searchArea%3B(node%5B%22place%22%3D%22city%22%5D%28area.searchArea%29%3Bway%5B%22place%22%3D%22city%22%5D%28area.searchArea%29%3Brel%5B%22place%22%3D%22city%22%5D%28area.searchArea%29%3B%29%3Bout%20center%3B")
+                val urlConnection = url.openConnection() as HttpURLConnection
+                val inputStream = urlConnection.inputStream
+
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = reader.readLine()
+
+                while (line != null) {
+                    response.append(line)
+                    line = reader.readLine()
+                }
+
+                val json = JSONObject(response.toString())
+                val elements = json.getJSONArray("elements")
+
+                val cities = mutableListOf<String>()  // Create a new list to hold cities
+
+                for (i in 0 until elements.length()) {
+                    val cityName = elements.getJSONObject(i).getJSONObject("tags").optString("name:fr")
+                    if (!cityName.isNullOrBlank()) {
+                        cities.add(cityName)
+                    }
+                }
+
+                Log.d("FetchCitiesTask", "Cities: $cities")
+
+                return cities
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            }
+        }
+
+        override fun onPostExecute(result: List<String>?) {
+            if (result != null) {
+                // Update the AutoCompleteTextView adapters with the new list of cities
+                sourceAutoCompleteTextView.setAdapter(ArrayAdapter(this@driver_trajet, android.R.layout.simple_dropdown_item_1line, result))
+                destinationAutoCompleteTextView.setAdapter(ArrayAdapter(this@driver_trajet, android.R.layout.simple_dropdown_item_1line, result))
+                sourceAutoCompleteTextView.threshold = 1
+                destinationAutoCompleteTextView.threshold = 1
+
+
+            } else {
+                // Handle the case where the data fetching failed
+                Toast.makeText(this@driver_trajet, "Failed to fetch cities", Toast.LENGTH_SHORT).show()
             }
         }
     }
