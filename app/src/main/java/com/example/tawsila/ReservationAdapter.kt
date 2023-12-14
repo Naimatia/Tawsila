@@ -119,7 +119,7 @@ class ReservationAdapter(
                             // Update the TextViews with departure and destination
                             departureTextView.text = "Depart: ${covoiturage.depart}"
                             destinationTextView.text = "Destination: ${covoiturage.destination}"
-                            dateTextView.text = " ${covoiturage.date}"
+                              dateTextView.text = " ${covoiturage.date}"
 
                         } else {
                             Log.e("ViewHolder", "Response body is null")

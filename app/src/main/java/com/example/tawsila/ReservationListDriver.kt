@@ -26,7 +26,7 @@ class ReservationListDriver : AppCompatActivity(), ReservationDriverAdapter.OnIt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_liste_reservations)
+        setContentView(R.layout.activity_liste_reservations_driver)
 
         recyclerView = findViewById(R.id.recyclerViewClients)
         val layoutManager = LinearLayoutManager(this)

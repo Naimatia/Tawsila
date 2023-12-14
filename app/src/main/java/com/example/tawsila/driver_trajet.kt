@@ -47,7 +47,7 @@ class driver_trajet: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.driver_trajet)
-
+        setUpBottomNavigationView()
         editDepart = findViewById(R.id.editDepart)
         editDestination = findViewById(R.id.editDestination)
         editPrice = findViewById(R.id.editPrice)
@@ -186,33 +186,33 @@ class driver_trajet: AppCompatActivity() {
                     true
                 }
                 R.id.bottom_trajet -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, DriverCovoiturageActivity::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_Add -> {
-                    val intent = Intent(this, profil_image::class.java)
+                    val intent = Intent(this, driver_trajet::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_notification -> {
-                    val intent = Intent(this, Profil::class.java)
+                    val intent = Intent(this, profil_image::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_profil -> {
-                    // Update userId if needed
-                    startActivity(Intent(applicationContext, Profil::class.java).apply {
-                        putExtra("USER_ID", userId)
-                    })
+                    val intent = Intent(this, Profil_Driver::class.java)
+                    intent.putExtra("USER_ID", userId)
+                    startActivity(intent)
                     finish()
                     true
+
                 }
                 else -> false
             }

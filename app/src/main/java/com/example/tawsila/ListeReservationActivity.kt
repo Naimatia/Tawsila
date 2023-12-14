@@ -110,15 +110,15 @@ class ListeReservationActivity  : AppCompatActivity(), ReservationAdapter.OnItem
                     finish()
                     true
                 }
-                R.id.carpooling -> {
-                    val intent = Intent(this, Profil::class.java)
+                R.id.bottom_maps -> {
+                    val intent = Intent(this, Maps::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()
                     true
                 }
                 R.id.bottom_profil -> {
-                    val intent = Intent(this, Profil_Driver::class.java)
+                    val intent = Intent(this, Profil::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

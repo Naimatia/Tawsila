@@ -142,8 +142,8 @@ class Profil_Driver  : AppCompatActivity() {
                     true
                 }
 
-                R.id.carpooling -> {
-                    val intent = Intent(this, Profil::class.java)
+                R.id.bottom_Add -> {
+                    val intent = Intent(this, driver_trajet::class.java)
                     intent.putExtra("USER_ID", userId)
                     startActivity(intent)
                     finish()

@@ -273,7 +273,7 @@ class ReservationDriverAdapter(
         Log.d("SendEmail", "Extracted Email: $extractedEmail, Extracted Name: $extractedName")
 
         Log.e("carpoolingId", "{$carpoolingId}")
-        val baseUrl = "http://169.254.142.86:8083/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
+        val baseUrl = "http://192.168.56.1:8083/driver/SendEmail?email=$extractedName&nameClient=$extractedEmail&idCovoiturage=$carpoolingId"
 
         // Use Retrofit to make the API call
         Log.e("URL", "{$baseUrl}")

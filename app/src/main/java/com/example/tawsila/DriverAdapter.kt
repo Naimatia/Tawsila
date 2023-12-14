@@ -47,8 +47,6 @@ class DriverAdapter(
             }
         }
     }
-    interface OnDeleteClickListener {
-        fun onDeleteClick(userId: Long)
-    }
+
 
 }

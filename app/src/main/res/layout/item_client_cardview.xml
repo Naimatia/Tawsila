@@ -6,6 +6,13 @@
     android:padding="16dp"
     android:background="@drawable/border_list_dc"
     android:id="@+id/h">
+    <TextView
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="299dp"
+        android:drawableLeft="@android:drawable/btn_star_big_on" />
+
 
     <TextView
         android:id="@+id/clientName"
@@ -27,7 +34,6 @@
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="0dp"
+       />
 </LinearLayout>
