@@ -14,17 +14,21 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <!-- Main content FrameLayout -->
-        <FrameLayout
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_container" >
-
-            <!-- CoordinatorLayout for BottomAppBar -->
-
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_above="@id/bottomAppBar"
+            android:fillViewport="true">
+            <!-- Main content FrameLayout -->
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_container" >
+
+                <!-- CoordinatorLayout for BottomAppBar -->
+
+
 
                 <!-- AppBarLayout -->
 
@@ -76,43 +80,53 @@
                             android:layout_marginEnd="20dp"
                             android:src="@drawable/call_24" />
                     </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.appbar.AppBarLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp">
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="30dp"
                         app:cardCornerRadius="30dp"
-                        app:cardElevation="20dp"
+                        app:cardElevation="10dp"
                         android:background="@drawable/bg1"
                         android:gravity="center_horizontal"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="0dp"
                         android:layout_marginBottom="30dp">
 
-                        <ScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
 
-                            <LinearLayout
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="24dp">
+
+                            <TextView
+                                android:id="@+id/text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_gravity="center_horizontal"
-                                android:padding="24dp">
+                                android:layout_marginTop="8dp"
+                                android:text="Add Carpooling"
+                                android:paddingLeft="10dp"
+                                android:fontFamily="@font/bungee"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:textColor="@color/black" />
 
-                                <TextView
-                                    android:id="@+id/text"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="10"
-                                    android:layout_marginTop="8dp"
-                                    android:hint="Add Carpooling"
-                                    android:paddingLeft="10dp"
-                                    android:textStyle="bold"
-                                    android:gravity="center"
-                                    android:textSize="20sp"
-                                    android:textColor="@color/black"/>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutDepart"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/baseline_my_location"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                                <EditText
+                                <AutoCompleteTextView
                                     android:id="@+id/editDepart"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
@@ -120,10 +134,20 @@
                                     android:hint="Depart"
                                     android:textColor="@color/black"
                                     android:textColorHighlight="@color/cardview_dark_background"
-                                    android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                                <EditText
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutDestination"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/add_location"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <AutoCompleteTextView
                                     android:id="@+id/editDestination"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
@@ -131,18 +155,37 @@
                                     android:hint="Destination"
                                     android:textColor="@color/black"
                                     android:textColorHighlight="@color/cardview_dark_background"
-                                    android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutPrice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editPrice"
                                     android:layout_width="match_parent"
+                                    app:endIconDrawable="@drawable/add"
                                     android:layout_height="50dp"
                                     android:drawablePadding="8dp"
                                     android:hint="Price"
                                     android:textColor="@color/black"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/baseline_calendar"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editDate"
@@ -154,6 +197,15 @@
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutPlace"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editPlace"
@@ -165,6 +217,15 @@
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editPhone"
@@ -176,6 +237,16 @@
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutBagage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:layout_constraintTop_toTopOf="parent">
+
                                 <EditText
                                     android:id="@+id/editBagage"
                                     android:layout_width="match_parent"
@@ -186,6 +257,16 @@
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutMarque"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/add"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editMarque"
@@ -197,17 +278,38 @@
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutHeureDepart"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/baseline_access_time_24"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editheureDepart"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:drawablePadding="8dp"
-                                    android:hint="Class"
+                                    android:hint="Heure depart"
                                     android:textColor="@color/black"
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutHeureArrivee"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/baseline_access_time_24"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
                                     android:id="@+id/editheureArrivee"
@@ -219,61 +321,65 @@
                                     android:textColorHighlight="@color/cardview_dark_background"
                                     android:layout_marginTop="20dp"
                                     android:paddingLeft="20dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
 
 
 
-                                <LinearLayout
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/buttonAjouterCours"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="50dp"
+                                    android:text="Add"
+                                    android:textStyle="bold"/>
 
-                                    <Button
-                                        android:id="@+id/buttonAjouterCours"
-                                        android:layout_width="140dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="16dp"
-                                        android:text="Add"
-                                        android:textStyle="bold"/>
-
-
-                                </LinearLayout>
 
                             </LinearLayout>
-                    </ScrollView>
+
+                        </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
 
+                </LinearLayout>
 
-                </com.google.android.material.appbar.AppBarLayout>
+
+            </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-                <!-- BottomAppBar -->
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/bleu"
+                app:contentInsetStart="0dp">
 
-                <com.google.android.material.bottomappbar.BottomAppBar
-                    android:id="@+id/bottomAppBar"
+                <!-- BottomNavigationView -->
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottom_navigation"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_gravity="bottom"
-                    android:backgroundTint="@color/bleu"
-                    app:contentInsetStart="0dp">
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:theme="@style/BottomNavThem"
+                    app:elevation="0dp"
+                    app:itemIconTint="@color/bottomnavigation_color_state"
+                    app:itemTextColor="@color/bottomnavigation_color_state"
+                    app:labelVisibilityMode="labeled"
+                    app:menu="@menu/bottom_navigation_menu" />
 
-                    <!-- BottomNavigationView -->
-                    <com.google.android.material.bottomnavigation.BottomNavigationView
-                        android:id="@+id/bottom_navigation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:theme="@style/BottomNavThem"
-                        app:elevation="0dp"
-                        app:itemIconTint="@color/bottomnavigation_color_state"
-                        app:itemTextColor="@color/bottomnavigation_color_state"
-                        app:labelVisibilityMode="labeled"
-                        app:menu="@menu/bottom_navigation_menu" />
-
-                </com.google.android.material.bottomappbar.BottomAppBar>
-
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        </FrameLayout>
+            </com.google.android.material.bottomappbar.BottomAppBar>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

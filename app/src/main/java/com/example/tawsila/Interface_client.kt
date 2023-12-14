@@ -74,6 +74,11 @@ class Interface_client : AppCompatActivity() {
             // Do something with the selected city
             Toast.makeText(this, "Selected city: $selectedCity", Toast.LENGTH_SHORT).show()
         }
+        destinationAutoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+            val selectedCity = destinationAutoCompleteTextView.adapter.getItem(position).toString()
+            // Do something with the selected city
+            Toast.makeText(this, "Selected city: $selectedCity", Toast.LENGTH_SHORT).show()
+        }
 
 // Add a click listener to the "Recherche" button
         buttonRecherche.setOnClickListener {
