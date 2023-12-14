@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    tools:context=".ListeReservationActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <!-- Main content FrameLayout -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container" >
+
+            <!-- CoordinatorLayout for BottomAppBar -->
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- AppBarLayout -->
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/bleu"
+                        app:layout_scrollFlags="scroll|enterAlways">
+
+
+                        <TextView
+                            android:id="@+id/textLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tawsila"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/bungee"
+                            android:textSize="30dp"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="16dp"/>
+
+                        <!-- Espace pour séparer le texte des icônes -->
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <!-- Icône à droite -->
+                        <ImageView
+                            android:id="@+id/iconRight1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/car_crash_24"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="20dp" />
+
+                        <!-- Deuxième icône à droite -->
+                        <ImageView
+                            android:id="@+id/iconRight2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/call_24"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="20dp" />
+                    </androidx.appcompat.widget.Toolbar>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <!-- RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewClients"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="49dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+                <!-- BottomAppBar -->
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/bleu"
+                    app:contentInsetStart="0dp">
+
+                    <!-- BottomNavigationView -->
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom_navigation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:theme="@style/BottomNavThem"
+                        app:elevation="0dp"
+                        app:itemIconTint="@color/bottomnavigation_color_state"
+                        app:itemTextColor="@color/bottomnavigation_color_state"
+                        app:labelVisibilityMode="labeled"
+                        app:menu="@menu/bottom_navigation_menu" />
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <!-- NavigationView for the drawer
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/navigation_drawer_menu" /> -->
+
+</androidx.drawerlayout.widget.DrawerLayout>
